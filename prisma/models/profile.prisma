@@ -1,0 +1,62 @@
+model Experience {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company     String
+  position    String
+  location    String?
+  description String?   @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  current     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([current])
+  @@map("experience")
+}
+
+model Education {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  school      String
+  degree      String
+  field       String
+  description String?   @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  current     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([current])
+  @@map("education")
+}
+
+model Skill {
+  id        String      @id @default(cuid())
+  name      String      @unique
+  users     UserSkill[]
+  createdAt DateTime    @default(now())
+
+  @@index([name])
+  @@map("skill")
+}
+
+model UserSkill {
+  id              String   @id @default(cuid())
+  userId          String
+  skillId         String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skill           Skill    @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  endorsementCount Int     @default(0)
+  createdAt       DateTime @default(now())
+
+  @@unique([userId, skillId])
+  @@index([userId])
+  @@index([skillId])
+  @@map("user_skill")
+}

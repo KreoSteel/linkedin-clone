@@ -10,12 +10,12 @@ export type TStateToast = {
 
 export const useStateToast = (
    state: TStateToast | undefined,
-   path: string | undefined
+   path?: string
 ) => {
    const router = useRouter();
 
    useEffect(() => {
-      if (state?.success) {
+      if (state?.success && state.message) {
          toast.success(state.message);
 
          if (path) {
@@ -32,5 +32,5 @@ export const useStateToast = (
             toast.error(state.error.issues[0].message);
          }
       }
-   }, [state, router]);
+   }, [state, router, path]);
 };

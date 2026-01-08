@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import '@/config/styles/globals.css';
 import { QueryProvider } from "./providers/query-provider";
-import HeaderComponent from "../widgets/header/header-component";
+import HeaderComponent from "../widgets/header/ui/Header";
 import { Toaster } from "sonner";
 
   const geistSans = Geist({
@@ -30,7 +30,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased max-w-6xl mx-auto flex flex-col items-center justify-center`}>
         <QueryProvider>
-          <HeaderComponent />
           <Toaster />
           {children}
         </QueryProvider>

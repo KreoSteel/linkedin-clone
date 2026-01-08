@@ -1,0 +1,82 @@
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum LocationType {
+  REMOTE
+  HYBRID
+  ON_SITE
+}
+
+enum JobApplicationStatus {
+  PENDING
+  REVIEWING
+  ACCEPTED
+  REJECTED
+}
+
+model Job {
+  id           String           @id @default(cuid())
+  posterId     String
+  poster       User             @relation(fields: [posterId], references: [id], onDelete: Cascade)
+  title        String
+  company      String
+  location     String?
+  locationType LocationType?
+  jobType      JobType?
+  description  String           @db.Text
+  requirements String?          @db.Text
+  salaryMin    Int?
+  salaryMax    Int?
+  salaryCurrency String?        @default("USD")
+  isActive     Boolean          @default(true)
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  applications JobApplication[]
+  savedBy      SavedJob[]
+
+  @@index([posterId])
+  @@index([isActive])
+  @@index([createdAt])
+  @@index([locationType])
+  @@index([jobType])
+  @@map("job")
+}
+
+model JobApplication {
+  id           String   @id @default(cuid())
+  jobId        String
+  applicantId  String
+  job          Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  applicant    User     @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  coverLetter  String?  @db.Text
+  resumeUrl    String?
+  status       JobApplicationStatus @default(PENDING)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([jobId, applicantId])
+  @@index([jobId])
+  @@index([applicantId])
+  @@index([status])
+  @@map("job_application")
+}
+
+model SavedJob {
+  id        String   @id @default(cuid())
+  userId    String
+  jobId     String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, jobId])
+  @@index([userId])
+  @@index([jobId])
+  @@map("saved_job")
+}
+

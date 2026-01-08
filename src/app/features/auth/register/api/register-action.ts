@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/app/shared/api/auth";
 import { registerSchema } from "../model/register-schema";
+import { redirect } from "next/navigation";
 
 export const registerAction = async (prevState: unknown, formData: FormData) => {
    const validatedData = registerSchema.safeParse({
@@ -28,10 +29,6 @@ export const registerAction = async (prevState: unknown, formData: FormData) => 
             lastName: validatedData.data.lastName,
          },
       });
-      return {
-         success: true,
-         message: "User registered successfully",
-      };
    } catch (error) {
       if (error instanceof Error) {
          return {
@@ -42,4 +39,6 @@ export const registerAction = async (prevState: unknown, formData: FormData) => 
          error: "Failed to register user",
       };
    }
+   
+   redirect("/");
 };

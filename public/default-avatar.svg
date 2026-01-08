@@ -1,0 +1,17 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="100" fill="url(#avatarGradient)"/>
+  
+  <!-- Head circle -->
+  <circle cx="100" cy="75" r="35" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Body/shoulders -->
+  <ellipse cx="100" cy="160" rx="55" ry="45" fill="#ffffff" opacity="0.9"/>
+  
+  <defs>
+    <linearGradient id="avatarGradient" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#dde1e6"/>
+      <stop offset="100%" stop-color="#b0b8c1"/>
+    </linearGradient>
+  </defs>
+</svg>

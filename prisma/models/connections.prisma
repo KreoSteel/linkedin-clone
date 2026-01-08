@@ -1,0 +1,24 @@
+enum ConnectionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+
+model Connection {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  sender     User     @relation("ConnectionSender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   User     @relation("ConnectionReceiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  status     ConnectionStatus @default(PENDING)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([senderId, receiverId])
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([status])
+  @@map("connection")
+}
+

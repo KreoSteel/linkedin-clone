@@ -1,0 +1,61 @@
+enum PostVisibility {
+  PUBLIC
+  CONNECTIONS
+  PRIVATE
+}
+
+enum PostMediaType {
+  IMAGE
+  VIDEO
+}
+
+model Post {
+  id        String     @id @default(cuid())
+  authorId  String
+  author    User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content   String     @db.Text
+  mediaUrl  String?
+  mediaType PostMediaType?
+  visibility PostVisibility @default(PUBLIC)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  likes     PostLike[]
+  comments  Comment[]
+
+  @@index([authorId])
+  @@index([createdAt])
+  @@index([visibility])
+  @@map("post")
+}
+
+model PostLike {
+  id        String   @id @default(cuid())
+  postId    String
+  userId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([postId, userId])
+  @@index([postId])
+  @@index([userId])
+  @@map("post_like")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String
+  authorId  String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+  @@index([authorId])
+  @@index([createdAt])
+  @@map("comment")
+}
+

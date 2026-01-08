@@ -1,25 +1,50 @@
-generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-}
-
-datasource db {
-  provider = "postgresql"
-}
-
 model User {
   id            String    @id @default(cuid())
   name          String?
   firstName     String
   lastName      String
   email         String    @unique
+  biography     String?   @db.Text
+  headline      String?
+  location      String?
+  avatar        String?
+  backgroundPhoto String?
+  coverImage    String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   emailVerified Boolean   @default(false)
   image         String?
+  
+  // Auth relations
   accounts      Account[]
   sessions      Session[]
+  
+  // Profile relations
+  experiences      Experience[]
+  educations       Education[]
+  skills           UserSkill[]
+  
+  // Social relations
+  posts            Post[]
+  postLikes        PostLike[]
+  comments         Comment[]
+  sentConnections     Connection[]  @relation("ConnectionSender")
+  receivedConnections Connection[]  @relation("ConnectionReceiver")
+  
+  // Job relations
+  jobs             Job[]
+  applications     JobApplication[]
+  savedJobs        SavedJob[]
+  
+  // Messaging relations
+  conversations    ConversationParticipant[]
+  sentMessages     Message[]
+  
+  // Notification relations
+  notifications    Notification[]    @relation("NotificationRecipient")
+  triggeredNotifications Notification[] @relation("NotificationActor")
 
+  @@index([email])
   @@map("user")
 }
 

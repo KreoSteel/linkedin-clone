@@ -1,18 +1,41 @@
 "use client";
 
-import { useActionState } from "react";
-import { loginAction } from "../api/login-action";
+import { useState } from "react";
 import { Button, Label } from "@/app/shared/ui";
 import { Input } from "@/app/shared/ui";
-import { useStateToast } from "@/app/shared/utils/use-state-toast";
+import { authClient } from "@/app/shared/api/auth-client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginForm() {
-    const [state, formAction, isPending] = useActionState(loginAction, undefined);
+    const [isPending, setIsPending] = useState(false);
+    const router = useRouter();
 
-    useStateToast(state, "/");
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsPending(true);
+
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        try {
+            await authClient.signIn.email({
+                email,
+                password,
+            });
+
+            toast.success("Login successful");
+            router.push("/");
+        } catch (error) {
+            toast.error(error instanceof Error ? error.message : "Failed to login");
+        } finally {
+            setIsPending(false);
+        }
+    };
 
     return (
-        <form action={formAction} className="flex flex-col gap-2 w-72">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-72">
             <div>
                 <Label>Email</Label>
                 <Input type="email" name="email" variant="bottomBorder" required />

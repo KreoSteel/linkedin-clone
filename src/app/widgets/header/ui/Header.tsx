@@ -1,7 +1,8 @@
-import { FaBell, FaLinkedin, FaUser } from "react-icons/fa";
+import { FaBell, FaLinkedin } from "react-icons/fa";
 import { FaHouse, FaUsers, FaBriefcase, FaMessage } from "react-icons/fa6";
 import Link from "next/link";
 import SearchBarComponent from "@/app/features/search-bar/ui/search-bar-component";
+import ProfileDropdown from "./ProfileDropdown";
 
 export default function HeaderComponent() {
    return (
@@ -51,12 +52,8 @@ export default function HeaderComponent() {
                   <span className="font-medium">Notifications</span>
                </Link>
 
-               <Link
-                  href="/me"
-                  className="flex flex-col items-center gap-0.5 border-l border-neutral-200 px-3 py-2 text-xs text-neutral-500 transition-colors hover:text-neutral-900">
-                  <FaUser size={24} />
-                  <span className="font-medium">Me</span>
-               </Link>
+               <ProfileDropdown />
+               
             </nav>
          </div>
       </header>

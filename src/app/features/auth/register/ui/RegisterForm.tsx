@@ -8,7 +8,7 @@ import { useStateToast } from "@/app/shared/utils/use-state-toast";
 export default function RegisterForm() {
    const [state, formAction, isPending] = useActionState(registerAction, undefined);
 
-   useStateToast(state, "/");
+   useStateToast(state);
 
    return (
       <form action={formAction} className="flex flex-col gap-2 w-72">

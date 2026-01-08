@@ -1,6 +1,7 @@
 "use server";
 import { auth } from "@/app/shared/api/auth";
 import { loginSchema } from "../model/login-schema";
+import { redirect } from "next/navigation";
 
 export async function loginAction(prevState: unknown, formData: FormData) {
    const validatedData = loginSchema.safeParse({
@@ -21,11 +22,6 @@ export async function loginAction(prevState: unknown, formData: FormData) {
             password: validatedData.data.password,
          },
       });
-
-      return {
-         success: true,
-         message: "Login successful",
-      };
    } catch (error) {
       if (error instanceof Error) {
          return {
@@ -36,4 +32,6 @@ export async function loginAction(prevState: unknown, formData: FormData) {
          error: "Failed to login",
       };
    }
+   
+   redirect("/");
 }

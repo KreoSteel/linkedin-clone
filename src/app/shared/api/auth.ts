@@ -1,6 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prisma } from "@/app/shared/api/prisma";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
    database: prismaAdapter(prisma, {
@@ -8,18 +11,18 @@ export const auth = betterAuth({
    }),
    emailAndPassword: {
       enabled: true,
-      requireEmailVerification: false,
    },
-   user: {
-      additionalFields: {
-         firstName: {
-            type: "string",
-            required: true,
-         },
-         lastName: {
-            type: "string",
-            required: true,
-         },
-      },
-   },
+   plugins: [nextCookies()],
 });
+
+export const getUserId = async () => {
+   const session = await auth.api.getSession({
+      headers: await headers(),
+   });
+   
+   if (!session?.user?.id) {
+      redirect("/login");
+   }
+
+   return session.user.id;
+};

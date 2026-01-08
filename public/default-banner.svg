@@ -1,0 +1,53 @@
+<svg width="1584" height="396" viewBox="0 0 1584 396" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base gradient with more contrast -->
+  <rect width="1584" height="396" fill="url(#bgGradient)"/>
+  
+  <!-- Multiple curved overlays for depth -->
+  <path d="M0 396V200C300 250 600 150 900 200C1200 250 1400 180 1584 220V396H0Z" 
+        fill="url(#waveGradient1)" 
+        opacity="0.2"/>
+  
+  <path d="M0 396V280C400 320 800 240 1200 280C1400 300 1584 270 1584 270V396H0Z" 
+        fill="url(#waveGradient2)" 
+        opacity="0.15"/>
+  
+  <!-- Decorative circles for visual interest -->
+  <circle cx="150" cy="80" r="120" fill="url(#circleGradient)" opacity="0.25"/>
+  <circle cx="1350" cy="250" r="180" fill="url(#circleGradient)" opacity="0.2"/>
+  <circle cx="800" cy="150" r="100" fill="url(#circleGradient)" opacity="0.15"/>
+  
+  <!-- Subtle geometric shapes -->
+  <rect x="1200" y="50" width="150" height="150" rx="20" fill="url(#shapeGradient)" opacity="0.1" transform="rotate(15 1275 125)"/>
+  
+  <defs>
+    <!-- Main background with more color variation -->
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b9dc3"/>
+      <stop offset="50%" stop-color="#a8b9d4"/>
+      <stop offset="100%" stop-color="#9fb0c8"/>
+    </linearGradient>
+    
+    <!-- Wave gradients -->
+    <linearGradient id="waveGradient1" x1="0" y1="200" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#6a8098"/>
+    </linearGradient>
+    
+    <linearGradient id="waveGradient2" x1="0" y1="280" x2="1584" y2="396" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c5d4e3"/>
+      <stop offset="100%" stop-color="#7a8ca8"/>
+    </linearGradient>
+    
+    <!-- Circle gradient -->
+    <radialGradient id="circleGradient" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#6a8098"/>
+    </radialGradient>
+    
+    <!-- Shape gradient -->
+    <linearGradient id="shapeGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#8b9dc3"/>
+    </linearGradient>
+  </defs>
+</svg>
