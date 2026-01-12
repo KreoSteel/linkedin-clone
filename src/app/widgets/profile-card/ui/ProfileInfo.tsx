@@ -1,17 +1,38 @@
 "use client";
 import Link from "next/link";
-import { Button } from "@/app/shared/ui";
-import { FaEdit } from "react-icons/fa";
 import type { ProfileType } from "@/app/entities/profile/model/schema";
+import EditProfileForm from "@/app/features/edit-profile-form/ui/EditProfileForm";
 
 interface ProfileInfoProps {
    profile: ProfileType;
+   isForFeed?: boolean;
    // isOwnProfile: boolean;
 }
-export default function ProfileInfo({ profile }: ProfileInfoProps) {
+export default function ProfileInfo({
+   profile,
+   isForFeed = false,
+}: ProfileInfoProps) {
+   if (isForFeed) {
+      return (
+         <div className="px-4 pb-3 pt-6">
+            <h2 className="text-sm font-semibold text-neutral-900 leading-tight mb-1">
+               {profile.firstName && profile.lastName
+                  ? `${profile.firstName} ${profile.lastName}`
+                  : "Unknown User"}
+            </h2>
+            <p className="text-xs text-neutral-600 leading-snug">
+               {profile.headline || "No headline set"}
+            </p>
+            <p className="text-xs text-neutral-500 leading-snug">
+               {profile.location || "No location set"}
+            </p>
+         </div>
+      );
+   }
+
    return (
       <div className="px-6 pb-6 pt-16 flex justify-between items-center">
-         <div className="">
+         <div>
             <span className="text-2xl font-semibold text-neutral-900">
                {profile.firstName} {profile.lastName}
             </span>
@@ -25,25 +46,20 @@ export default function ProfileInfo({ profile }: ProfileInfoProps) {
                <p className="text-base text-neutral-700">No headline set</p>
             )}
             <div className="flex items-center gap-2 text-sm text-neutral-500">
-               {!profile.location && <span>No location set</span>}
-               <span>{profile.location}</span>
-               {!profile.email && <span>No email set</span>}
-               {profile.email && <span>•</span>}
-               <Link
-                  href={`mailto:${profile.email}`}
-                  className="font-semibold text-primary-500 hover:underline">
-                  {profile.email}
-               </Link>
+               <span>{profile.location || "No location set"}</span>
+               {profile.email && (
+                  <>
+                     <span>•</span>
+                     <Link
+                        href={`mailto:${profile.email}`}
+                        className="font-semibold text-primary-500 hover:underline">
+                        {profile.email}
+                     </Link>
+                  </>
+               )}
             </div>
          </div>
-         <div className="flex items-center gap-2">
-            <Button
-               variant="outline"
-               className="bg-primary-500 text-white hover:bg-primary-600 hover:text-white rounded-full">
-               <FaEdit size={16} />
-               Edit Profile
-            </Button>
-         </div>
+         <EditProfileForm profile={profile} />
       </div>
    );
 }

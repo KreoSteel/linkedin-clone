@@ -1,24 +1,13 @@
 "use client";
 import ProfileCard from "../widgets/profile-card/ui/ProfileCard";
-import type { ProfileType } from "../entities/profile/model/schema";
 import { ProfileProviders } from "../(app)/providers/profile-providers";
-type User = {
-   id: string;
-   firstName: string;
-   lastName: string;
-   email: string;
-   image: string | null;
-   createdAt: Date;
-   updatedAt: Date;
-   name: string | null;
-   emailVerified: boolean;
-};
+import { ProfileType } from "../entities/profile/model/schema";
 
-export default function ProfilePageClient({ user }: { user: User }) {
+export default function ProfilePageClient({ user }: { user: ProfileType }) {
    return (
-      <div className="py-6">
+      <div className="py-6 flex flex-col items-center justify-center w-full">
          <ProfileProviders profile={user}>
-            <ProfileCard />
+            <ProfileCard profile={user} isForFeed={false} />
          </ProfileProviders>
       </div>
    );

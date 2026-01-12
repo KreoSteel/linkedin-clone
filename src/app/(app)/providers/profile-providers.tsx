@@ -3,7 +3,7 @@ import { ProfileType } from "@/app/entities/profile/model/schema";
 
 interface ProfileProviderProps {
     children: React.ReactNode;
-    profile: ProfileType | undefined;
+    profile: ProfileType;
 }
 
 export function ProfileProviders({ children, profile }: ProfileProviderProps) {

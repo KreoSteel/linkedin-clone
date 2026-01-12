@@ -3,17 +3,20 @@
 import ProfileBanner from "./ProfileBanner";
 import ProfileInfo from "./ProfileInfo";
 import ProfileAvatarUpload from "./ProfileAvatar";
-import { useProfileContext } from "../model/profile-context";
+import { ProfileType } from "@/app/entities/profile/model/schema";
+interface ProfileCardProps {
+   profile: ProfileType;
+   isForFeed?: boolean;
+}
 
-export default function ProfileCard() {
-   const { profile } = useProfileContext();
+export default function ProfileCard({ profile, isForFeed = false }: ProfileCardProps) {
    return (
-      <div className="relative bg-white rounded-lg overflow-hidden border border-neutral-200">
-         <ProfileBanner />
-         <div className="absolute left-6 top-[100px]">
-            <ProfileAvatarUpload />
+      <div className="relative bg-white shadow-sm rounded-lg overflow-hidden border border-neutral-200">
+         <ProfileBanner isForFeed={isForFeed} />
+         <div className={`absolute ${isForFeed ? "left-4 top-[24px]" : "left-6 top-[100px]"}`}>
+            <ProfileAvatarUpload isForFeed={isForFeed} />
          </div>
-         <ProfileInfo profile={profile} />
+         <ProfileInfo profile={profile} isForFeed={isForFeed} />
       </div>
    );
 }

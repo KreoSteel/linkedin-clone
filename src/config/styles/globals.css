@@ -232,10 +232,6 @@ h4 {
   @apply text-sm leading-relaxed;
 }
 
-p {
-  @apply text-base;
-}
-
 @layer utilities {
   .font-system {
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -247,6 +243,6 @@ p {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-[#F4F2EE] text-foreground;
   }
 }
