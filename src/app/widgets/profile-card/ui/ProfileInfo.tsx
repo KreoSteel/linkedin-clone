@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import type { ProfileType } from "@/app/entities/profile/model/schema";
+import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import EditProfileForm from "@/app/features/edit-profile-form/ui/EditProfileForm";
 
 interface ProfileInfoProps {

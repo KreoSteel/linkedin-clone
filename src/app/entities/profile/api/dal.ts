@@ -1,5 +1,5 @@
 import { prisma } from "@/app/shared/api/prisma";
-import type { EditProfileType } from "../model/schema";
+import type { EditProfileType } from "../model/profile-schema";
 
 export const getProfile = async (userId: string) => {
    const user = await prisma.user.findUnique({

@@ -1,7 +1,7 @@
 "use client";
 import ProfileCard from "../widgets/profile-card/ui/ProfileCard";
 import { ProfileProviders } from "../(app)/providers/profile-providers";
-import { ProfileType } from "../entities/profile/model/schema";
+import { ProfileType } from "../entities/profile/model/profile-schema";
 
 export default function ProfilePageClient({ user }: { user: ProfileType }) {
    return (

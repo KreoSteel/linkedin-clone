@@ -1,3 +1,3 @@
-export { editProfileSchema, type EditProfileType } from "./model/schema";
+export { editProfileSchema, type EditProfileType } from "./model/profile-schema";
 export { editProfile } from "./api/dal";
 export { getProfileOptions } from "./api/query-options";

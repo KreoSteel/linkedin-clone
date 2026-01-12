@@ -1,5 +1,5 @@
 "use client";
-import { ProfileType } from "@/app/entities/profile/model/schema";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import { createContext, useContext } from "react";
 
 interface ProfileContextValue {

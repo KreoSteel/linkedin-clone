@@ -1,5 +1,5 @@
 import { ProfileContext } from "@/app/widgets/profile-card/model/profile-context";
-import { ProfileType } from "@/app/entities/profile/model/schema";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
 interface ProfileProviderProps {
     children: React.ReactNode;

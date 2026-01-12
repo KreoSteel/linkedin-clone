@@ -3,9 +3,9 @@ import ProfileCard from "@/app/widgets/profile-card/ui/ProfileCard";
 import { getUserId } from "@/app/shared/api/auth";
 import { getProfile } from "@/app/entities/profile/api/dal";
 import { redirect } from "next/navigation";
-import { ProfileType } from "@/app/entities/profile/model/schema";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import ConnectionsCard from "@/app/features/connections-card/ui/ConnectionsCard";
-import CreatePost from "@/app/widgets/post-composer/ui/PostComposer";
+import PostComposer from "@/app/widgets/post-composer/ui/PostComposer";
 
 export default async function Home() {
   const userId = await getUserId();
@@ -22,7 +22,7 @@ export default async function Home() {
       </aside>
       
       <main className="flex-1 max-w-2xl flex flex-col gap-4">
-        <CreatePost />
+        <PostComposer profile={user as ProfileType} />
       </main>
     </div>
   );

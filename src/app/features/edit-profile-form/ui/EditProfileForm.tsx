@@ -10,7 +10,7 @@ import { Label } from "@/app/shared/ui/label";
 import { Input } from "@/app/shared/ui/input";
 import { Separator } from "@/app/shared/ui/separator";
 import { Textarea } from "@/app/shared/ui/textarea";
-import { ProfileType } from "@/app/entities/profile/model/schema";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import { useActionState, useEffect } from "react";
 import { editProfileAction } from "../api/edit-profile-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";

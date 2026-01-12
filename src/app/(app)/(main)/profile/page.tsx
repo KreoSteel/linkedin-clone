@@ -1,7 +1,7 @@
 import { getProfile } from "@/app/entities/profile/api/dal";
 import ProfilePageClient from "@/app/pages/ProfilePageClient";
 import { getUserId } from "@/app/shared/api/auth";
-import { ProfileType } from "@/app/entities/profile/model/schema";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
 export default async function ProfilePage() {
 
