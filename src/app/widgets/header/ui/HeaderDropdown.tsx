@@ -13,28 +13,54 @@ import {
 import Link from "next/link";
 import { signOutAction } from "../api/sign-out-action";
 import { authClient } from "@/app/shared/api/auth-client";
+import Image from "next/image";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
-export default function ProfileDropdown() {
+export default function HeaderDropdown({ profile }: { profile: ProfileType }) {
    const session = authClient.useSession();
-
    const user = session.data?.user;
    if (!user) {
       return null;
    }
+
    return (
       <DropdownMenu>
          <DropdownMenuTrigger className="flex flex-col items-center gap-0.5 px-3 py-2 text-xs text-neutral-500 transition-colors hover:text-neutral-900 cursor-pointer">
-            <FaUser size={24} />
+            {profile.avatar ? (
+               <Image
+                  src={profile.avatar}
+                  alt="Profile"
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover w-8 h-8"
+               />
+            ) : (
+               <FaUser size={24} />
+            )}
             <span className="font-medium">Me</span>
          </DropdownMenuTrigger>
          <DropdownMenuContent>
             <DropdownMenuLabel className="flex items-center gap-3">
                <div className="flex items-center gap-2">
-                  <FaUser size={24} />
+                  {profile.avatar ? (
+                     <Image
+                        src={profile.avatar}
+                        alt="Profile"
+                        width={40}
+                        height={40}
+                        className="rounded-full object-cover w-10 h-10"
+                     />
+                  ) : (
+                     <FaUser size={24} />
+                  )}
                </div>
                <div className="flex flex-col">
-                  <span className="font-medium">{user.name || "Unknown User"}</span>
-                  <span className="text-sm text-neutral-500">{user.email || "No email set"}</span>
+                  <span className="font-medium">
+                     {user.name || "Unknown User"}
+                  </span>
+                  <span className="text-sm text-neutral-500">
+                     {user.email || "No email set"}
+                  </span>
                </div>
             </DropdownMenuLabel>
 

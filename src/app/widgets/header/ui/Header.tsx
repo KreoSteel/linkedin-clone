@@ -2,9 +2,22 @@ import { FaBell, FaLinkedin } from "react-icons/fa";
 import { FaHouse, FaUsers, FaBriefcase, FaMessage } from "react-icons/fa6";
 import Link from "next/link";
 import SearchBarComponent from "@/app/features/search-bar/ui/search-bar-component";
-import ProfileDropdown from "./ProfileDropdown";
+import HeaderDropdown from "./HeaderDropdown";
+import { getUserId } from "@/app/shared/api/auth";
+import { getProfile } from "@/app/entities/profile/api/profile-dal";
+import { redirect } from "next/navigation";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
-export default function HeaderComponent() {
+export default async function HeaderComponent() {
+   const userId = await getUserId();
+   if (!userId.success) {
+      redirect("/login");
+   }
+   const profile = await getProfile(userId.data);
+   if (!profile.success) {
+      redirect("/login");
+   }
+
    return (
       <header className="sticky top-0 z-50 w-full border-b border-neutral-200 bg-bg">
          <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-6">
@@ -52,7 +65,7 @@ export default function HeaderComponent() {
                   <span className="font-medium">Notifications</span>
                </Link>
 
-               <ProfileDropdown />
+               <HeaderDropdown profile={profile.data as ProfileType}/>
                
             </nav>
          </div>

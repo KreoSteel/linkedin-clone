@@ -2,8 +2,8 @@
 import { auth } from "@/app/shared/api/auth";
 import { loginSchema } from "../model/login-schema";
 import { redirect } from "next/navigation";
-
-export async function loginAction(prevState: unknown, formData: FormData) {
+import { Result } from "@/app/types";
+export async function loginAction(prevState: unknown, formData: FormData): Promise<Result<string>> {
    const validatedData = loginSchema.safeParse({
       email: formData.get("email"),
       password: formData.get("password"),
@@ -11,7 +11,8 @@ export async function loginAction(prevState: unknown, formData: FormData) {
 
    if (!validatedData.success) {
       return {
-         error: validatedData.error,
+         success: false,
+         error: "Invalid data: " + validatedData.error.issues.map((issue) => issue.message).join(", "),
       };
    }
 
@@ -25,13 +26,16 @@ export async function loginAction(prevState: unknown, formData: FormData) {
    } catch (error) {
       if (error instanceof Error) {
          return {
+            success: false,
             error: error.message,
          };
       }
       return {
+         success: false,
          error: "Failed to login",
       };
    }
    
    redirect("/");
+   
 }
