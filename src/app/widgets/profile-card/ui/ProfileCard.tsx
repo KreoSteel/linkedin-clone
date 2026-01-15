@@ -10,10 +10,16 @@ interface ProfileCardProps {
 }
 
 export default function ProfileCard({ profile, isForFeed = false }: ProfileCardProps) {
+   // Proportional calculations:
+   // Feed: banner=64px, avatar=72px, overlap=50%, gap=16px
+   // Profile: banner=160px, avatar=150px, overlap=50%, gap=24px
+   const avatarTop = isForFeed ? "top-10" : "top-26"; // 32px : 80px
+   const leftPosition = isForFeed ? "left-4" : "left-6";
+   
    return (
-      <div className="relative bg-white shadow-sm rounded-lg overflow-hidden border border-neutral-200">
+      <div className="relative w-full bg-white shadow-sm rounded-lg overflow-hidden border border-neutral-200">
          <ProfileBanner isForFeed={isForFeed} />
-         <div className={`absolute ${isForFeed ? "left-4 top-[24px]" : "left-6 top-[100px]"}`}>
+         <div className={`absolute ${leftPosition} ${avatarTop}`}>
             <ProfileAvatarUpload imageUrl={profile.avatar} isForFeed={isForFeed} />
          </div>
          <ProfileInfo profile={profile} isForFeed={isForFeed} />  

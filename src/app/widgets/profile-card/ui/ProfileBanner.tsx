@@ -9,7 +9,7 @@ export default function ProfileBanner({ isForFeed = false }: { isForFeed?: boole
             alt="Profile Banner"
             width={700}
             height={isForFeed ? 64 : 200}
-            className="object-cover"
+            className={`object-cover w-full ${isForFeed ? "h-16" : "h-40"}`}
          />
       </div>
    );

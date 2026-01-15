@@ -11,7 +11,7 @@ import { Input } from "@/app/shared/ui/input";
 import { Separator } from "@/app/shared/ui/separator";
 import { Textarea } from "@/app/shared/ui/textarea";
 import { ProfileType } from "@/app/entities/profile/model/profile-schema";
-import { useActionState, useEffect } from "react";
+import { Fragment, useActionState, useEffect } from "react";
 import { editProfileAction } from "../api/edit-profile-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
 import { useState } from "react";
@@ -32,7 +32,7 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
 
    return (
       <Dialog open={open} onOpenChange={setOpen}>
-         <DialogTrigger className="flex items-center gap-2 text-sm text-neutral-700 hover:bg-neutral-100 rounded-md p-2 w-fit">
+         <DialogTrigger className="flex items-center gap-2 text-sm bg-primary-500 text-primary-50 hover:bg-primary-600 transition-all rounded-full cursor-pointer px-2.5 py-2 w-fit">
             <FaEdit size={16} />
             <span>Edit Profile</span>
          </DialogTrigger>
@@ -111,13 +111,34 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                         disabled={isPending}
                      />
                   </div>
+                  <Separator className="my-2.5" />
+                  <div className="flex flex-col gap-2">
+                     <p>About</p>
+                     <p className="text-xs text-neutral-700">
+                        You can write about your years of experience, industry, or
+                        skills. People also talk about their achievements or
+                        previous job experiences.
+                     </p>
+                  </div>
+                  <div>
+                     <Label className="text-sm font-medium text-neutral-700">
+                        Biography
+                     </Label>
+                     <Textarea
+                        defaultValue={profile.biography}
+                        name="biography"
+                        className="border-neutral-400 rounded-sm h-40 focus:ring-0"
+                        maxLength={2600}
+                        disabled={isPending}
+                     />
+                  </div>
                </div>
-            <Separator />
-            <Button
-               className="w-fit bg-primary-500 text-white hover:bg-primary-600 hover:text-white rounded-full"
-               disabled={isPending}>
-               {isPending ? "Saving..." : "Save"}
-            </Button>
+               <Separator />
+               <Button
+                  className="w-fit bg-primary-500 text-white hover:bg-primary-600 hover:text-white rounded-full"
+                  disabled={isPending}>
+                  {isPending ? "Saving..." : "Save"}
+               </Button>
             </form>
          </DialogContent>
       </Dialog>

@@ -19,7 +19,7 @@ export default function ProfileAvatarUpload({
    useStateToast(state);
 
    const hasImage = !!imageUrl;
-   const avatarSize = isForFeed ? "h-[72px] w-[72px]" : "h-[150px] w-[150px]";
+   const avatarSize = isForFeed ? "h-[88px] w-[88px]" : "h-[150px] w-[150px]";
    const iconSize = isForFeed ? "h-8 w-8" : "h-11 w-11";
    const iconTextSize = isForFeed ? "text-lg" : "text-xl";
 
@@ -79,7 +79,7 @@ export default function ProfileAvatarUpload({
          <button
             type="button"
             onClick={handleClick}
-            className={`relative ${avatarSize} hover:opacity-80 cursor-pointer transition-opacity hover:opacity-80 ${
+            className={`relative ${avatarSize} cursor-pointer transition-opacity hover:opacity-80 ${
                !hasImage
                   ? "cursor-pointer transition-opacity hover:opacity-80"
                   : "cursor-default"
@@ -94,10 +94,12 @@ export default function ProfileAvatarUpload({
             {!hasImage && (
                <div className="pointer-events-none absolute bottom-1 left-1 right-1 top-1 rounded-full border-2 border-dashed border-gray-400/70" />
             )}
+            {!hasImage && (
             <div
                className={`absolute -bottom-1 -right-1 flex ${iconSize} rounded-full text-primary-500 border-2 border-primary-500 bg-white items-center justify-center`}>
                <FaPlus className={`${iconTextSize} leading-none`} />
             </div>
+            )}
          </button>
       </form>
    );

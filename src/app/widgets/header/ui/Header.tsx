@@ -1,7 +1,7 @@
 import { FaBell, FaLinkedin } from "react-icons/fa";
 import { FaHouse, FaUsers, FaBriefcase, FaMessage } from "react-icons/fa6";
 import Link from "next/link";
-import SearchBarComponent from "@/app/features/search-bar/ui/search-bar-component";
+import SearchBarComponent from "@/app/features/search-bar/ui/SearchBar";
 import HeaderDropdown from "./HeaderDropdown";
 import { getUserId } from "@/app/shared/api/auth";
 import { getProfile } from "@/app/entities/profile/api/profile-dal";

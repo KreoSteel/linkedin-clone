@@ -23,6 +23,7 @@ export const editProfileAction = async (
       lastName: formData.get("lastName"),
       headline: formData.get("headline"),
       location: formData.get("location"),
+      biography: formData.get("biography"),
       email: formData.get("email"),
    });
 

@@ -14,7 +14,7 @@ export default function ProfileInfo({
 }: ProfileInfoProps) {
    if (isForFeed) {
       return (
-         <div className="px-4 pb-3 pt-6">
+         <div className="px-4 pb-3 pt-14">
             <h2 className="text-sm font-semibold text-neutral-900 leading-tight mb-1">
                {profile.firstName && profile.lastName
                   ? `${profile.firstName} ${profile.lastName}`
@@ -31,7 +31,7 @@ export default function ProfileInfo({
    }
 
    return (
-      <div className="px-6 pb-6 pt-16 flex justify-between items-center">
+      <div className="px-6 pb-6 pt-20 flex justify-between items-center">
          <div>
             <span className="text-2xl font-semibold text-neutral-900">
                {profile.firstName} {profile.lastName}
