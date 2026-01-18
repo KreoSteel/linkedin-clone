@@ -2,20 +2,24 @@
 import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import { createContext, useContext } from "react";
 
-interface ProfileContextValue {
+interface CurrentUserProfileContextValue {
    profile: ProfileType;
 }
 
+export const CurrentUserProfileContext = createContext<CurrentUserProfileContextValue | undefined>(undefined);
 
-export const ProfileContext = createContext<ProfileContextValue | undefined>(undefined);
-
-export function useProfileContext() {
-   const context = useContext(ProfileContext);
+export function useCurrentUserProfile() {
+   const context = useContext(CurrentUserProfileContext);
    if (!context) {
       throw new Error(
-         "useProfileContext must be used within a ProfileProvider"
+         "useCurrentUserProfile must be used within a CurrentUserProfileProvider"
       );
    }
    return context;
+}
+
+export function useCurrentUserId() {
+   const { profile } = useCurrentUserProfile();
+   return profile.id;
 }
 

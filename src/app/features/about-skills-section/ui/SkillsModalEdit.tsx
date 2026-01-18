@@ -12,7 +12,7 @@ import {
    DialogDescription,
 } from "@/app/shared/ui/dialog";
 import { PlusIcon, XIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
    Command,
    CommandEmpty,
@@ -38,13 +38,42 @@ export default function SkillsModalEdit({
    allSkills,
 }: SkillsModalEditProps) {
    const [open, setOpen] = useState(false);
+   
+   const initialSkills = useMemo(() => {
+      return userSkills.map((userSkill) => ({
+         id: userSkill.skillId,
+         name: userSkill.name,
+         createdAt: userSkill.createdAt,
+      })) as SkillType[];
+   }, [userSkills]);
+
    const {
       selectedSkills,
       popoverIsOpen,
       setPopoverIsOpen,
       handleAddSkill,
       handleRemoveSkill,
-   } = useSkillsModal();
+      handleSaveSkills,
+      isPending,
+      isSuccess,
+   } = useSkillsModal({
+      initialSkills,
+   });
+
+   useEffect(() => {
+      if (isSuccess && !isPending && selectedSkills.length === 0 && open) {
+         const timer = setTimeout(() => {
+            setOpen(false);
+         }, 300);
+         return () => clearTimeout(timer);
+      }
+   }, [isSuccess, isPending, selectedSkills.length, open]);
+
+   useEffect(() => {
+      if (!open) {
+         setPopoverIsOpen(false);
+      }
+   }, [open, setPopoverIsOpen]);
 
    return (
       <Dialog open={open} onOpenChange={setOpen}>
@@ -60,22 +89,28 @@ export default function SkillsModalEdit({
             </DialogDescription>
 
             <div className="space-y-3 mt-4">
-               {selectedSkills.map((skill) => (
-                  <div
-                     key={skill.id}
-                     className="flex items-center justify-between gap-2">
-                     <span className="px-3 py-1.5 bg-neutral-100 text-neutral-900 rounded-full text-sm font-medium">
-                        {skill.name}
-                     </span>
-                     <Button
-                        type="button"
-                        variant="none"
-                        className="w-fit"
-                        onClick={() => handleRemoveSkill(skill.id)}>
-                        <XIcon className="w-5 h-5" strokeWidth={2.5} />
-                     </Button>
-                  </div>
-               ))}
+               {selectedSkills.length > 0 ? (
+                  selectedSkills.map((skill) => (
+                     <div
+                        key={skill.id}
+                        className="flex items-center justify-between gap-2">
+                        <span className="px-3 py-1.5 bg-neutral-100 text-neutral-900 rounded-full text-sm font-medium">
+                           {skill.name}
+                        </span>
+                        <Button
+                           type="button"
+                           variant="none"
+                           className="w-fit"
+                           onClick={() => handleRemoveSkill(skill.id)}>
+                           <XIcon className="w-5 h-5" strokeWidth={2.5} />
+                        </Button>
+                     </div>
+                  ))
+               ) : (
+                  <p className="text-sm text-neutral-500 text-center py-4">
+                     No skills selected. Add skills to showcase your expertise.
+                  </p>
+               )}
             </div>
 
             <div className="mt-4">
@@ -97,14 +132,16 @@ export default function SkillsModalEdit({
                         <CommandList>
                            <CommandEmpty>No skill found.</CommandEmpty>
                            <CommandGroup>
-                              {allSkills.map((skill) => (
-                                 <CommandItem
-                                    key={skill.id}
-                                    value={skill.name}
-                                    onSelect={() => handleAddSkill(skill)}>
-                                    {skill.name}
-                                 </CommandItem>
-                              ))}
+                              {allSkills
+                                 .filter((skill) => !selectedSkills.some((s) => s.id === skill.id))
+                                 .map((skill) => (
+                                    <CommandItem
+                                       key={skill.id}
+                                       value={skill.name}
+                                       onSelect={() => handleAddSkill(skill)}>
+                                       {skill.name}
+                                    </CommandItem>
+                                 ))}
                            </CommandGroup>
                         </CommandList>
                      </Command>
@@ -116,13 +153,16 @@ export default function SkillsModalEdit({
                <Button
                   type="button"
                   variant="outline"
-                  onClick={() => setOpen(false)}>
+                  onClick={() => setOpen(false)}
+                  disabled={isPending}>
                   Cancel
                </Button>
                <Button
                   type="button"
-                  className="bg-primary-500 hover:bg-primary-600">
-                  Save
+                  className="bg-primary-500 hover:bg-primary-600"
+                  onClick={handleSaveSkills}
+                  disabled={isPending || selectedSkills.length === 0}>
+                  {isPending ? "Saving..." : "Save"}
                </Button>
             </div>
          </DialogContent>

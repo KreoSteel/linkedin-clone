@@ -13,6 +13,7 @@ export const saveSkillsSchema = z.object({
 
 export const userSkillSchema = z.object({
     id: z.string(),
+    name: z.string().min(1, { message: "Skill name is required" }).max(50, { message: "Skill name must be less than 50 characters" }),
     skillId: z.string().min(1, { message: "Skill ID is required" }),
     userId: z.string().min(1, { message: "User ID is required" }),
     endorsementCount: z.number(),

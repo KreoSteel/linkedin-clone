@@ -1,15 +1,15 @@
-import { ProfileContext } from "@/app/widgets/profile-card/model/profile-context";
+import { CurrentUserProfileContext } from "@/app/widgets/profile-card/model/profile-context";
 import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
-interface ProfileProviderProps {
+interface CurrentUserProfileProviderProps {
     children: React.ReactNode;
     profile: ProfileType;
 }
 
-export function ProfileProviders({ children, profile }: ProfileProviderProps) {
+export function ProfileProviders({ children, profile }: CurrentUserProfileProviderProps) {
     return (
-       <ProfileContext.Provider value={{ profile }}>
+       <CurrentUserProfileContext.Provider value={{ profile }}>
           {children}
-       </ProfileContext.Provider>
+       </CurrentUserProfileContext.Provider>
     );
  }

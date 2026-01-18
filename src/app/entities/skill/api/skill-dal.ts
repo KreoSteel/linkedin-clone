@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/app/shared/api/prisma";
 import type {
    AddSkillToUserType,
@@ -14,11 +15,11 @@ export const getSkills = async (
          where: {
             ...(query && query.length > 0
                ? {
-                    name: {
-                       contains: query,
-                       mode: "insensitive",
-                    },
-                 }
+                  name: {
+                     contains: query,
+                     mode: "insensitive",
+                  },
+               }
                : undefined),
          },
          orderBy: {
@@ -71,7 +72,14 @@ export const getSkillsByUserId = async (
 
       return {
          success: true,
-         data: skills,
+         data: skills.map((skill) => ({
+            id: skill.id,
+            name: skill.skill.name,
+            skillId: skill.skillId,
+            userId: skill.userId,
+            endorsementCount: skill.endorsementCount,
+            createdAt: skill.createdAt,
+         })),
       };
    } catch (error) {
       if (error instanceof Error) {

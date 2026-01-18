@@ -42,7 +42,7 @@ export default function AboutSkillsSection({
                      <span
                         key={userSkill.id}
                         className="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-full text-sm font-medium">
-                        {userSkill.skillId}
+                        {userSkill.name}
                      </span>
                   ))}
                   {userSkills.length > 5 && (
