@@ -1,32 +1,9 @@
 "use client";
-import {
-   SkillType,
-   UserSkillType,
-} from "@/app/entities/skill/model/skill-schema";
-import { Button } from "@/app/shared/ui";
-import {
-   Dialog,
-   DialogTitle,
-   DialogContent,
-   DialogTrigger,
-   DialogDescription,
-} from "@/app/shared/ui/dialog";
-import { PlusIcon, XIcon } from "lucide-react";
-import { useState, useEffect, useMemo } from "react";
-import {
-   Command,
-   CommandEmpty,
-   CommandGroup,
-   CommandInput,
-   CommandItem,
-   CommandList,
-} from "@/app/shared/ui/command";
-import {
-   Popover,
-   PopoverTrigger,
-   PopoverContent,
-} from "@/app/shared/ui/popover";
+import { Button, Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, Popover, PopoverTrigger, PopoverContent, Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/app/shared/ui";
+import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
 import { useSkillsModal } from "../model/use-skills-modal";
+import { useEffect, useMemo, useState } from "react";
+import { PlusIcon, XIcon } from "lucide-react";
 
 interface SkillsModalEditProps {
    userSkills: UserSkillType[];
@@ -38,7 +15,7 @@ export default function SkillsModalEdit({
    allSkills,
 }: SkillsModalEditProps) {
    const [open, setOpen] = useState(false);
-   
+
    const initialSkills = useMemo(() => {
       return userSkills.map((userSkill) => ({
          id: userSkill.skillId,

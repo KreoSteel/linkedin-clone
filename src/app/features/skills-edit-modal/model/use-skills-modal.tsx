@@ -12,6 +12,7 @@ export const useSkillsModal = ({ initialSkills = [] }: UseSkillsModalOptions = {
     const [selectedSkills, setSelectedSkills] = useState<SkillType[]>(initialSkills);
     const [popoverIsOpen, setPopoverIsOpen] = useState(false);
     const { mutate: saveSkills, isPending, isSuccess } = useSaveSkillsMutation(userId);
+    
 
     useEffect(() => {
         setSelectedSkills(initialSkills);

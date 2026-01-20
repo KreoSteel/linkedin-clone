@@ -1,37 +1,29 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
-export type StateToast = {
-   success?: boolean;
-   message?: string;
-   error?: string | { issues: Array<{ message: string }> };
-};
+import { Result } from "@/app/types";
 
 export const useStateToast = (
-   state: StateToast | undefined,
-   path?: string
+   state: Result<string> | undefined,
+   pathToRedirect?: string
 ) => {
    const router = useRouter();
 
    useEffect(() => {
-      if (state?.success && state.message) {
-         toast.success(state.message);
+      if (state?.success && state.data) {
+         toast.success(state.data);
 
-         if (path) {
+         if (pathToRedirect) {
             setTimeout(() => {
-               router.push(path);
+               router.push(pathToRedirect);
             }, 1000);
          }
+         return;
       }
 
-      if (state?.error) {
-         if (typeof state.error === "string") {
-            toast.error(state.error);
-         } else if (state.error.issues && Array.isArray(state.error.issues)) {
-            toast.error(state.error.issues[0].message);
-         }
+      if (state && !state.success && state.error) {
+         toast.error(state.error);
       }
 
-   }, [state, router, path]);
+   }, [state, router, pathToRedirect]);
 };

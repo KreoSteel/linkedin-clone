@@ -2,7 +2,7 @@
 import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
 import { Gem } from "lucide-react";
 import { Fragment } from "react";
-import SkillsModalEdit from "./SkillsModalEdit";
+import SkillsModalEdit from "../../../features/skills-edit-modal/ui/SkillsModalEdit";
 
 interface AboutSkillsSectionProps {
    biography: string;

@@ -7,6 +7,7 @@ import {
    getSkills,
    getSkillsByUserId,
 } from "@/app/entities/skill/api/skill-dal";
+import { getUserExperiences } from "@/app/entities/experience/api/experience-dal";
 
 export default async function ProfilePage() {
    const userId = await getUserId();
@@ -25,11 +26,15 @@ export default async function ProfilePage() {
    const skillsResult = await getSkills("");
    const allSkills = skillsResult.success ? skillsResult.data : [];
 
+   const experiencesResult = await getUserExperiences(userId.data);
+   const experiences = experiencesResult.success ? experiencesResult.data : [];
+
    return (
       <ProfilePageClient
          user={user.data as ProfileType}
          userSkills={userSkills}
          allSkills={allSkills}
+         experiences={experiences}
       />
    );
 }

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import EditProfileForm from "@/app/features/edit-profile-form/ui/EditProfileForm";
+import { Separator } from "@radix-ui/react-dropdown-menu";
 
 interface ProfileInfoProps {
    profile: ProfileType;
@@ -12,6 +13,7 @@ export default function ProfileInfo({
    profile,
    isForFeed = false,
 }: ProfileInfoProps) {
+
    if (isForFeed) {
       return (
          <div className="px-4 pb-3 pt-14">
@@ -20,9 +22,10 @@ export default function ProfileInfo({
                   ? `${profile.firstName} ${profile.lastName}`
                   : "Unknown User"}
             </h2>
-            <p className="text-xs text-neutral-600 leading-snug">
+            <p className="text-xs text-neutral-800 leading-snug">
                {profile.headline || "No headline set"}
             </p>
+            <Separator className="my-2" />
             <p className="text-xs text-neutral-500 leading-snug">
                {profile.location || "No location set"}
             </p>
@@ -30,21 +33,29 @@ export default function ProfileInfo({
       );
    }
 
+   if (!profile.firstName && !profile.lastName) {
+      return (
+         <div className="px-4 pb-3 pt-14">
+            <span className="text-2xl font-semibold text-neutral-900">
+               Unknown User
+            </span>
+         </div>
+      );
+   }
+
    return (
       <div className="px-6 pb-6 pt-20 flex justify-between items-center">
-         <div>
+         <div className="flex flex-col gap-1">
             <span className="text-2xl font-semibold text-neutral-900">
                {profile.firstName} {profile.lastName}
             </span>
-            {!profile.firstName && !profile.lastName && (
-               <span className="text-2xl font-semibold text-neutral-900">
-                  Unknown User
-               </span>
-            )}
-            <p className="text-base text-neutral-700">{profile.headline}</p>
-            {!profile.headline && (
-               <p className="text-base text-neutral-700">No headline set</p>
-            )}
+
+            {profile.headline && (
+               <p className="text-base text-neutral-900 leading-snug mb-1 max-w-md">
+                  {profile.headline}
+               </p>
+            ) || <p className="text-base text-neutral-900">No headline set</p>}
+
             <div className="flex items-center gap-2 text-sm text-neutral-500">
                <span>{profile.location || "No location set"}</span>
                {profile.email && (
