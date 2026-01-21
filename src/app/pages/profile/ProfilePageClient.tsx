@@ -1,11 +1,11 @@
 "use client";
-import ProfileCard from "../widgets/profile-card/ui/ProfileCard";
-import { ProfileProviders } from "../(app)/providers/profile-providers";
-import { ProfileType } from "../entities/profile/model/profile-schema";
-import AboutSkillsSection from "../widgets/profile-sections/about-skills-section/AboutSkillsSection";
-import { SkillType, UserSkillType } from "../entities/skill/model/skill-schema";
-import ExperienceSection from "../widgets/profile-sections/experience-section/ExperienceSection";
-import { TExperience } from "../entities/experience";
+import ProfileCard from "@/app/widgets/profile-card/ui/ProfileCard";
+import { ProfileProviders } from "@/app/(app)/providers/profile-providers";
+import { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import AboutSkillsSection from "@/app/widgets/profile-sections/about-skills-section/AboutSkillsSection";
+import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
+import ExperienceSection from "@/app/widgets/profile-sections/experience-section/ExperienceSection";
+import { TExperience } from "@/app/entities/experience";
 
 interface ProfilePageClientProps {
    user: ProfileType;

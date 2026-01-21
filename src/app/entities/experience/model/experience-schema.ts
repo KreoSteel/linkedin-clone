@@ -50,5 +50,19 @@ export const createExperienceSchema = baseCreateExperienceSchema.refine((data) =
     path: ["endDate"],
 })
 
+
+export const updateExperienceSchema = baseCreateExperienceSchema.partial().refine((data) => !data.endDate || data.endDate >= (data.startDate as Date), {
+    message: "End date must be after start date",
+    path: ["endDate"],
+}).refine((data) => data.current !== true || data.endDate === null, {
+    message: "End date must be empty if currently working here",
+    path: ["endDate"],
+}).refine((data) => data.current !== false || data.endDate !== null, {
+    message: "End date is required if not currently working here",
+    path: ["endDate"],
+});
+
+
 export type TExperience = z.infer<typeof experienceSchema>;
 export type TCreateExperience = z.infer<typeof createExperienceSchema>;
+export type TUpdateExperience = z.infer<typeof updateExperienceSchema>;

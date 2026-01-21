@@ -1,7 +1,7 @@
 "use client";
-import { Briefcase } from "lucide-react";
-import ExperienceEditModal from "../../../features/experience-create-modal/ui/CreateExperienceModal";
+import ExperienceModal from "@/app/features/experience-modals/ui/ExperienceModal";
 import { TExperience } from "@/app/entities/experience";
+import { Briefcase } from "lucide-react";
 import { format } from "date-fns"
 
 export default function ExperienceSection({ experiences }: { experiences: TExperience[] }) {
@@ -9,7 +9,7 @@ export default function ExperienceSection({ experiences }: { experiences: TExper
       <div className="bg-white py-4 px-6 gap-4 flex flex-col shadow-sm rounded-md overflow-hidden border border-neutral-200">
          <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold">Experience</h2>
-            <ExperienceEditModal />
+            <ExperienceModal />
          </div>
 
          {experiences.length > 0 ? (
@@ -22,7 +22,7 @@ export default function ExperienceSection({ experiences }: { experiences: TExper
                         </div>
 
                         <div className="flex-1 min-w-0">
-                           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between  gap-1">
                               <div className="flex-1 min-w-0">
                                  <h3 className="font-semibold text-neutral-900 truncate">
                                     {experience.position}
@@ -40,6 +40,7 @@ export default function ExperienceSection({ experiences }: { experiences: TExper
                                     )}
                                  </p>
                               </div>
+                              <ExperienceModal isEditing={true} experience={experience} />
                            </div>
 
                            {experience.description && (

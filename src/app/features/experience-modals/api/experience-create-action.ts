@@ -1,6 +1,5 @@
 "use server";
-import { createExperience } from "@/app/entities/experience/api/experience-dal";
-import { createExperienceSchema, TExperience } from "@/app/entities/experience/model/experience-schema";
+import { createExperience, createExperienceSchema } from "@/app/entities/experience";
 import { getUserId } from "@/app/shared/api/auth";
 import { Result } from "@/app/types";
 

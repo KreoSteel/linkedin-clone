@@ -1,5 +1,5 @@
 import { getProfile } from "@/app/entities/profile/api/profile-dal";
-import ProfilePageClient from "@/app/pages/ProfilePageClient";
+import ProfilePageClient from "@/app/pages/profile/ProfilePageClient";
 import { getUserId } from "@/app/shared/api/auth";
 import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import { redirect } from "next/navigation";
