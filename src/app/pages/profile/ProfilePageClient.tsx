@@ -6,15 +6,18 @@ import AboutSkillsSection from "@/app/widgets/profile-sections/about-skills-sect
 import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
 import ExperienceSection from "@/app/widgets/profile-sections/experience-section/ExperienceSection";
 import { TExperience } from "@/app/entities/experience";
+import EducationSection from "@/app/widgets/profile-sections/education-section/EducationSection";
+import { TEducation } from "@/app/entities/education/model/education-schema";
 
 interface ProfilePageClientProps {
    user: ProfileType;
    userSkills: UserSkillType[];
    allSkills: SkillType[];
    experiences: TExperience[];
+   educations: TEducation[];
 }
 
-export default function ProfilePageClient({ user, userSkills, allSkills, experiences }: ProfilePageClientProps) {
+export default function ProfilePageClient({ user, userSkills, allSkills, experiences, educations }: ProfilePageClientProps) {
    return (
       <div className="py-6 flex flex-col items-center justify-center w-full">
          <ProfileProviders profile={user}>
@@ -22,6 +25,7 @@ export default function ProfilePageClient({ user, userSkills, allSkills, experie
                <ProfileCard profile={user} isForFeed={false} />
                <AboutSkillsSection biography={user.biography || ""} userSkills={userSkills} allSkills={allSkills} />
                <ExperienceSection experiences={experiences} />
+               <EducationSection educations={educations} />
             </div>
          </ProfileProviders>
       </div>

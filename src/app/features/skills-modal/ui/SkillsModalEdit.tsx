@@ -2,18 +2,19 @@
 import { Button, Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, Popover, PopoverTrigger, PopoverContent, Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/app/shared/ui";
 import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
 import { useSkillsModal } from "../model/use-skills-modal";
+import { Separator } from "@/app/shared/ui/separator";
 import { useEffect, useMemo, useState } from "react";
-import { PlusIcon, XIcon } from "lucide-react";
+import { PencilIcon, PlusIcon, XIcon } from "lucide-react";
 
-interface SkillsModalEditProps {
+interface SkillsModalProps {
    userSkills: UserSkillType[];
    allSkills: SkillType[];
 }
 
-export default function SkillsModalEdit({
+export default function SkillsModal({
    userSkills,
    allSkills,
-}: SkillsModalEditProps) {
+}: SkillsModalProps) {
    const [open, setOpen] = useState(false);
 
    const initialSkills = useMemo(() => {
@@ -55,11 +56,12 @@ export default function SkillsModalEdit({
    return (
       <Dialog open={open} onOpenChange={setOpen}>
          <DialogTrigger className="flex items-center gap-2 text-sm border-2 border-primary-500 text-primary-500 hover:bg-primary-50 transition-all rounded-full cursor-pointer px-3 py-1.5 w-fit">
-            {userSkills.length > 0 ? "Edit" : "Add skills"}
+            {userSkills.length > 0 ? <PencilIcon className="w-4 h-4" /> : <PlusIcon className="w-4 h-4" />}
          </DialogTrigger>
 
          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
             <DialogTitle>Skills</DialogTitle>
+            <Separator />
             <DialogDescription className="text-sm text-neutral-700">
                Show your top skills — add up to 5 skills you want to be known
                for.

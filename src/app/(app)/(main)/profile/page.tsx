@@ -8,6 +8,7 @@ import {
    getSkillsByUserId,
 } from "@/app/entities/skill/api/skill-dal";
 import { getUserExperiences } from "@/app/entities/experience/api/experience-dal";
+import { getUserEducations } from "@/app/entities/education";
 
 export default async function ProfilePage() {
    const userId = await getUserId();
@@ -29,12 +30,16 @@ export default async function ProfilePage() {
    const experiencesResult = await getUserExperiences(userId.data);
    const experiences = experiencesResult.success ? experiencesResult.data : [];
 
+   const educationsResult = await getUserEducations(userId.data);
+   const educations = educationsResult.success ? educationsResult.data : [];
+   
    return (
       <ProfilePageClient
          user={user.data as ProfileType}
          userSkills={userSkills}
          allSkills={allSkills}
          experiences={experiences}
+         educations={educations}
       />
    );
 }

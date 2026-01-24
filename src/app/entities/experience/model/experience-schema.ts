@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { dateValidations } from "@/app/shared/utils/date-validations-schema";
+
+const MESSAGE = "working here"
 
 export const baseExperienceSchema = z.object({
     id: z.string(),
@@ -19,48 +22,9 @@ export const baseCreateExperienceSchema = baseExperienceSchema.omit({
     updatedAt: true,
 })
 
-export const experienceSchema = baseExperienceSchema.refine(
-    (data) => !data.endDate || data.endDate >= data.startDate,
-    {
-        message: "End date must be after start date",
-        path: ["endDate"],
-    }
-).refine(
-    (data) => data.current !== true || data.endDate === null,
-    {
-        message: "End date must be empty if currently working here",
-        path: ["endDate"],
-    }
-).refine(
-    (data) => data.current !== false || data.endDate !== null,
-    {
-        message: "End date is required if not currently working here",
-        path: ["endDate"],
-    }
-);
-
-export const createExperienceSchema = baseCreateExperienceSchema.refine((data) => !data.endDate || data.endDate >= data.startDate, {
-    message: "End date must be after start date",
-    path: ["endDate"],
-}).refine((data) => data.current !== true || data.endDate === null, {
-    message: "End date must be empty if currently working here",
-    path: ["endDate"],
-}).refine((data) => data.current !== false || data.endDate !== null, {
-    message: "End date is required if not currently working here",
-    path: ["endDate"],
-})
-
-
-export const updateExperienceSchema = baseCreateExperienceSchema.partial().refine((data) => !data.endDate || data.endDate >= (data.startDate as Date), {
-    message: "End date must be after start date",
-    path: ["endDate"],
-}).refine((data) => data.current !== true || data.endDate === null, {
-    message: "End date must be empty if currently working here",
-    path: ["endDate"],
-}).refine((data) => data.current !== false || data.endDate !== null, {
-    message: "End date is required if not currently working here",
-    path: ["endDate"],
-});
+export const experienceSchema = dateValidations(baseExperienceSchema, MESSAGE)
+export const createExperienceSchema = dateValidations(baseCreateExperienceSchema, MESSAGE)
+export const updateExperienceSchema = dateValidations(baseCreateExperienceSchema.partial(), MESSAGE)
 
 
 export type TExperience = z.infer<typeof experienceSchema>;

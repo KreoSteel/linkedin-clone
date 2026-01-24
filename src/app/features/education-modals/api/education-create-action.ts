@@ -1,10 +1,10 @@
 "use server";
-import { createExperience, createExperienceSchema } from "@/app/entities/experience";
-import { revalidatePath } from "next/cache";
+import { createEducation, createEducationSchema } from "@/app/entities/education";
 import { getUserId } from "@/app/shared/api/auth";
 import { Result } from "@/app/types";
+import { revalidatePath } from "next/cache";
 
-export const createExperienceAction = async (prevState: unknown, formData: FormData): Promise<Result<string>> => {
+export const educationCreateAction = async (prevState: unknown, formData: FormData): Promise<Result<string>> => {
     const userId = await getUserId();
     if (!userId.success) {
         return {
@@ -14,10 +14,10 @@ export const createExperienceAction = async (prevState: unknown, formData: FormD
     }
 
     const endDateValue = formData.get("endDate");
-    const validatedData = createExperienceSchema.safeParse({
-        position: formData.get("position"),
-        company: formData.get("company"),
-        location: formData.get("location"),
+    const validatedData = createEducationSchema.safeParse({
+        school: formData.get("school"),
+        degree: formData.get("degree"),
+        field: formData.get("field"),
         description: formData.get("description"),
         startDate: new Date(formData.get("startDate") as string),
         endDate: endDateValue && endDateValue !== "" ? new Date(endDateValue as string) : null,
@@ -32,20 +32,20 @@ export const createExperienceAction = async (prevState: unknown, formData: FormD
     }
 
     try {
-        const createdExperience = await createExperience(userId.data, validatedData.data);
-        if (!createdExperience.success) {
+        const createdEducation = await createEducation(userId.data, validatedData.data);
+        if (!createdEducation.success) {
             return {
                 success: false,
-                error: createdExperience.error,
-            }
+                error: createdEducation.error,
+            };
         }
 
         revalidatePath("/profile");
 
         return {
             success: true,
-            data: "Experience created successfully",
-        }
+            data: "Education created successfully",
+        };
     } catch (error) {
         if (error instanceof Error) {
             return {
@@ -55,7 +55,7 @@ export const createExperienceAction = async (prevState: unknown, formData: FormD
         }
         return {
             success: false,
-            error: "Failed to create experience",
-        }
+            error: "Failed to create education",
+        };
     }
 }

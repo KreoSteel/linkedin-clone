@@ -1,11 +1,11 @@
- "use server";
-import { getExperienceById, updateExperience, updateExperienceSchema } from "@/app/entities/experience";
+"use server";
+import { getEducationById, updateEducation, updateEducationSchema } from "@/app/entities/education";
 import { getUserId } from "@/app/shared/api/auth";
 import { revalidatePath } from "next/cache";
 import { Result } from "@/app/types";
 
 
-export const experienceEditAction = async (prevState: unknown, formData: FormData): Promise<Result<string>> => {
+export const educationEditAction = async (prevState: unknown, formData: FormData): Promise<Result<string>> => {
     const userId = await getUserId();
     if (!userId.success) {
         return {
@@ -14,21 +14,21 @@ export const experienceEditAction = async (prevState: unknown, formData: FormDat
         };
     }
 
-    const experienceId = formData.get("id") as string;
-    const existingExperience = await getExperienceById(userId.data, experienceId);
-    if (!existingExperience.success) {
+    const educationId = formData.get("id") as string;
+    const existingEducation = await getEducationById(userId.data, educationId);
+    if (!existingEducation.success) {
         return {
             success: false,
-            error: existingExperience.error,
+            error: existingEducation.error,
         }
     }
 
     const startDateValue = formData.get("startDate");
     const endDateValue = formData.get("endDate");
-    const validatedData = updateExperienceSchema.safeParse({
-        position: formData.get("position"),
-        company: formData.get("company"),
-        location: formData.get("location"),
+    const validatedData = updateEducationSchema.safeParse({
+        school: formData.get("school"),
+        degree: formData.get("degree"),
+        field: formData.get("field"),
         description: formData.get("description"),
         startDate: startDateValue && startDateValue !== "" ? new Date(startDateValue as string) : undefined,
         endDate: endDateValue && endDateValue !== "" ? new Date(endDateValue as string) : null,
@@ -43,11 +43,11 @@ export const experienceEditAction = async (prevState: unknown, formData: FormDat
     }
 
     try {
-        const updatedExperience = await updateExperience(userId.data, experienceId, validatedData.data)
-        if (!updatedExperience.success) {
+        const updatedEducation = await updateEducation(userId.data, educationId, validatedData.data)
+        if (!updatedEducation.success) {
             return {
                 success: false,
-                error: updatedExperience.error,
+                error: updatedEducation.error,
             }
         }
 
@@ -55,7 +55,7 @@ export const experienceEditAction = async (prevState: unknown, formData: FormDat
 
         return {
             success: true,
-            data: "Experience updated successfully",
+            data: "Education updated successfully",
         }
     } catch (error) {
         if (error instanceof Error) {
@@ -66,7 +66,7 @@ export const experienceEditAction = async (prevState: unknown, formData: FormDat
         }
         return {
             success: false,
-            error: "Failed to update experience",
+            error: "Failed to update education",
         }
     }
 }
