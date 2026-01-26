@@ -10,13 +10,13 @@ import { Label } from "@/app/shared/ui/label";
 import { Input } from "@/app/shared/ui/input";
 import { Separator } from "@/app/shared/ui/separator";
 import { Textarea } from "@/app/shared/ui/textarea";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
-import { Fragment, useActionState, useEffect } from "react";
+import { useActionState, useEffect } from "react";
 import { editProfileAction } from "../api/edit-profile-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
 import { useState } from "react";
+import { EditProfileFormProps } from "../model/types";
 
-export default function EditProfileForm({ profile }: { profile: ProfileType }) {
+export default function EditProfileForm({ profile }: EditProfileFormProps) {
    const [open, setOpen] = useState(false);
    const [state, formAction, isPending] = useActionState(
       editProfileAction,
@@ -44,7 +44,7 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                <div className="flex flex-col gap-2">
                   <p>Personal Information</p>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         First Name *
                      </Label>
                      <Input
@@ -58,7 +58,7 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                      />
                   </div>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         Last Name *
                      </Label>
                      <Input
@@ -72,11 +72,11 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                      />
                   </div>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         Headline
                      </Label>
                      <Textarea
-                        defaultValue={profile.headline}
+                        defaultValue={profile.headline ?? ""}
                         name="headline"
                         className="border-neutral-400 rounded-sm h-20 focus:ring-0"
                         maxLength={220}
@@ -85,12 +85,12 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                      />
                   </div>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         Location
                      </Label>
                      <Input
                         type="text"
-                        defaultValue={profile.location}
+                        defaultValue={profile.location ?? ""}
                         name="location"
                         variant="form"
                         maxLength={100}
@@ -98,7 +98,7 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                      />
                   </div>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         Email *
                      </Label>
                      <Input
@@ -114,18 +114,18 @@ export default function EditProfileForm({ profile }: { profile: ProfileType }) {
                   <Separator className="my-2.5" />
                   <div className="flex flex-col gap-2">
                      <p>About</p>
-                     <p className="text-xs text-neutral-700">
+                     <p className="text-sm text-neutral-700">
                         You can write about your years of experience, industry, or
                         skills. People also talk about their achievements or
                         previous job experiences.
                      </p>
                   </div>
                   <div>
-                     <Label className="text-sm font-medium text-neutral-700">
+                     <Label className="text-base font-medium text-neutral-700">
                         Biography
                      </Label>
                      <Textarea
-                        defaultValue={profile.biography}
+                        defaultValue={profile.biography ?? ""}
                         name="biography"
                         className="border-neutral-400 rounded-sm h-40 focus:ring-0"
                         maxLength={2600}

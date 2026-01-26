@@ -1,6 +1,4 @@
 import { Dialog, DialogContent, DialogTrigger } from "@/app/shared/ui/dialog";
-import { Button } from "@/app/shared/ui/button";
-import CreatePost from "@/app/widgets/post-composer/ui/PostComposer";
 
 export default function CreatePostModal() {
    return (

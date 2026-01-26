@@ -11,8 +11,9 @@ export default function ProfileAvatarUpload({
    imageUrl,
    isJustAvatar = false,
    isForFeed = false,
+   isCurrentUser = false,
 }: ProfileAvatarUploadProps) {
-   const [state, formAction, isPending] = useActionState(
+   const [state, formAction] = useActionState(
       avatarUploadAction,
       undefined
    );
@@ -66,6 +67,19 @@ export default function ProfileAvatarUpload({
       );
    }
 
+   if (!isCurrentUser) {
+      return (
+         <div className={`relative inline-block rounded-full object-cover ${avatarSize}`}>
+            <Image
+               src={imageUrl || "/default-avatar.svg"}
+               alt="Profile Avatar"
+               fill
+               className="rounded-full object-cover"
+            />
+         </div>
+      );
+   }
+
    return (
       <form action={formAction} className="relative inline-block">
          <input
@@ -79,11 +93,10 @@ export default function ProfileAvatarUpload({
          <button
             type="button"
             onClick={handleClick}
-            className={`relative ${avatarSize} cursor-pointer transition-opacity hover:opacity-80 ${
-               !hasImage
+            className={`relative ${avatarSize} cursor-pointer transition-opacity hover:opacity-80 ${!hasImage
                   ? "cursor-pointer transition-opacity hover:opacity-80"
                   : "cursor-default"
-            }`}
+               }`}
             aria-label={hasImage ? "Profile photo" : "Upload profile photo"}>
             <Image
                src={imageUrl || "/default-avatar.svg"}
@@ -95,10 +108,10 @@ export default function ProfileAvatarUpload({
                <div className="pointer-events-none absolute bottom-1 left-1 right-1 top-1 rounded-full border-2 border-dashed border-gray-400/70" />
             )}
             {!hasImage && (
-            <div
-               className={`absolute -bottom-1 -right-1 flex ${iconSize} rounded-full text-primary-500 border-2 border-primary-500 bg-white items-center justify-center`}>
-               <FaPlus className={`${iconTextSize} leading-none`} />
-            </div>
+               <div
+                  className={`absolute -bottom-1 -right-1 flex ${iconSize} rounded-full text-primary-500 border-2 border-primary-500 bg-white items-center justify-center`}>
+                  <FaPlus className={`${iconTextSize} leading-none`} />
+               </div>
             )}
          </button>
       </form>

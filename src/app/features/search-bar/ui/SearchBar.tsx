@@ -3,16 +3,16 @@ import { Input } from "@/app/shared/ui/input";
 import { useDebounce } from "use-debounce";
 import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { useState, FormEvent } from "react";
 
-export default function SearchBar(props: any) {
+export default function SearchBar() {
    const router = useRouter();
+   const [searchQuery, setSearchQuery] = useState("");
+   const [debouncedQuery] = useDebounce(searchQuery, 500);
 
-   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const formData = new FormData(e.currentTarget);
-      const query = formData.get("query") as string;
       const params = new URLSearchParams();
-      const [debouncedQuery] = useDebounce(query, 500);
       if (debouncedQuery) {
          params.set("query", debouncedQuery);
       } else {
@@ -30,7 +30,8 @@ export default function SearchBar(props: any) {
             name="query"
             placeholder="Search"
             className="w-full pl-8 border-neutral-400 rounded-full"
-            
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
          />
          <FaSearch size={20} className="absolute left-2 text-neutral-600" />
       </form>

@@ -1,15 +1,17 @@
 "use client";
 import { GraduationCap } from "lucide-react";
 import { format } from "date-fns";
-import { TEducation } from "@/app/entities/education";
 import EducationModals from "@/app/features/education-modals/ui/EducationModals";
+import { EducationSectionProps } from "./model/types";
 
-export default function EducationSection({ educations }: { educations: TEducation[] }) {
+export default function EducationSection({ educations, isCurrentUser }: EducationSectionProps) {
     return (
         <div className="bg-white py-4 px-6 gap-4 flex flex-col shadow-sm rounded-md overflow-hidden border border-neutral-200">
             <div className="flex items-center justify-between">
                 <h2>Education</h2>
-                <EducationModals />
+                {isCurrentUser && (
+                    <EducationModals />
+                )}
             </div>
 
             {educations.length > 0 ? (
@@ -24,22 +26,24 @@ export default function EducationSection({ educations }: { educations: TEducatio
                                 <div className="flex-1 min-w-0">
                                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
                                         <div className="flex-1 min-w-0">
-                                            <h3>
+                                            <h3 className="text-lg font-semibold">
                                                 {education.school}
                                             </h3>
-                                            <p className="text-neutral-700 text-sm">
+                                            <p className="text-neutral-700 text-base">
                                                 {education.degree} - {education.field}
                                             </p>
-                                            <p className="text-neutral-700 text-xs">
+                                            <p className="text-neutral-700 text-sm">
                                                 {format(education.startDate, "MMM yyyy")} - {education.current ? "Present" : format(education.endDate as Date, "MMM yyyy")}
                                             </p>
                                         </div>
-                                        <EducationModals isEditMode={true} education={education} />
+                                        {isCurrentUser && (
+                                            <EducationModals isEditMode={true} education={education} />
+                                        )}
                                     </div>
 
                                     {education.description && (
                                         <div className="mt-3">
-                                            <p className="text-sm text-neutral-700 leading-relaxed whitespace-pre-line">
+                                            <p className="text-base text-neutral-700 leading-relaxed whitespace-pre-line">
                                                 {education.description}
                                             </p>
                                         </div>
@@ -55,8 +59,10 @@ export default function EducationSection({ educations }: { educations: TEducatio
                 </div>
             ) : (
                 <div className="flex items-center justify-between py-6">
-                    <p className="text-sm text-neutral-700 text-center max-w-lg mx-auto">
-                        No education added yet. Add your educational background to showcase your academic achievements.
+                    <p className="text-base text-neutral-700 text-center max-w-lg mx-auto">
+                        {isCurrentUser ? 
+                        "No education added yet. Add your educational background to showcase your academic achievements." :
+                        "No education added by this user."}
                     </p>
                 </div>
             )}

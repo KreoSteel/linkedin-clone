@@ -1,22 +1,21 @@
 "use client";
 import Link from "next/link";
-import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import EditProfileForm from "@/app/features/edit-profile-form/ui/EditProfileForm";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import { ProfileInfoProps } from "../model/types";
 
-interface ProfileInfoProps {
-   profile: ProfileType;
-   isForFeed?: boolean;
-   // isOwnProfile: boolean;
-}
 export default function ProfileInfo({
    profile,
    isForFeed = false,
+   avatarSize,
+   isCurrentUser = false,
 }: ProfileInfoProps) {
+   const gap = isForFeed ? 16 : 24;
+   const paddingTop = (avatarSize * 0.5) + gap;
 
    if (isForFeed) {
       return (
-         <div className="px-4 pb-3 pt-14">
+         <div className="px-4 pb-3" style={{ paddingTop: `${paddingTop}px` }}>
             <h2 className="text-sm font-semibold text-neutral-900 leading-tight mb-1">
                {profile.firstName && profile.lastName
                   ? `${profile.firstName} ${profile.lastName}`
@@ -35,7 +34,7 @@ export default function ProfileInfo({
 
    if (!profile.firstName && !profile.lastName) {
       return (
-         <div className="px-4 pb-3 pt-14">
+         <div className="px-4 pb-3" style={{ paddingTop: `${paddingTop}px` }}>
             <span className="text-2xl font-semibold text-neutral-900">
                Unknown User
             </span>
@@ -44,7 +43,7 @@ export default function ProfileInfo({
    }
 
    return (
-      <div className="px-6 pb-6 pt-20 flex justify-between items-center">
+      <div className="px-6 pb-6 flex justify-between items-center" style={{ paddingTop: `${paddingTop}px` }}>
          <div className="flex flex-col gap-1">
             <span className="text-2xl font-semibold text-neutral-900">
                {profile.firstName} {profile.lastName}
@@ -70,7 +69,9 @@ export default function ProfileInfo({
                )}
             </div>
          </div>
-         <EditProfileForm profile={profile} />
+         {isCurrentUser && (
+            <EditProfileForm profile={profile} />
+         ) || null}
       </div>
    );
 }

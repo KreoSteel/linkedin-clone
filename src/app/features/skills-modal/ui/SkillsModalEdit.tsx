@@ -1,15 +1,11 @@
 "use client";
 import { Button, Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, Popover, PopoverTrigger, PopoverContent, Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/app/shared/ui";
-import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
 import { useSkillsModal } from "../model/use-skills-modal";
 import { Separator } from "@/app/shared/ui/separator";
 import { useEffect, useMemo, useState } from "react";
 import { PencilIcon, PlusIcon, XIcon } from "lucide-react";
-
-interface SkillsModalProps {
-   userSkills: UserSkillType[];
-   allSkills: SkillType[];
-}
+import { SkillsModalProps } from "../model/types";
+import { SkillType } from "@/app/entities/skill/model/skill-schema";
 
 export default function SkillsModal({
    userSkills,
@@ -62,7 +58,7 @@ export default function SkillsModal({
          <DialogContent className="max-w-lg max-h-[80vh] overflow-y-auto">
             <DialogTitle>Skills</DialogTitle>
             <Separator />
-            <DialogDescription className="text-sm text-neutral-700">
+            <DialogDescription className="text-base text-neutral-700">
                Show your top skills — add up to 5 skills you want to be known
                for.
             </DialogDescription>
@@ -73,7 +69,7 @@ export default function SkillsModal({
                      <div
                         key={skill.id}
                         className="flex items-center justify-between gap-2">
-                        <span className="px-3 py-1.5 bg-neutral-100 text-neutral-900 rounded-full text-sm font-medium">
+                        <span className="px-3 py-1.5 bg-neutral-100 text-neutral-900 rounded-full text-base font-medium">
                            {skill.name}
                         </span>
                         <Button
@@ -86,7 +82,7 @@ export default function SkillsModal({
                      </div>
                   ))
                ) : (
-                  <p className="text-sm text-neutral-500 text-center py-4">
+                  <p className="text-base text-neutral-500 text-center py-4">
                      No skills selected. Add skills to showcase your expertise.
                   </p>
                )}

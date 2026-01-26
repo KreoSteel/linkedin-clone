@@ -4,17 +4,12 @@ import { Textarea } from "@/app/shared/ui/textarea";
 import { useActionState, useState, useEffect } from "react";
 import { educationCreateAction } from "../api/education-create-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
-import { TEducation } from "@/app/entities/education";
 import { PencilIcon, PlusIcon } from "lucide-react";
 import { format } from "date-fns";
 import { educationEditAction } from "../api/education-edit-action";
 import EducationDeleteModal from "./EducationDeleteModal";
 import { Separator } from "@/app/shared/ui/separator";
-
-interface EducationModalsProps {
-    isEditMode?: boolean;
-    education?: TEducation;
-}
+import { EducationModalsProps } from "../model/types";
 
 export default function EducationModals({ isEditMode = false, education }: EducationModalsProps) {
     const [open, setOpen] = useState(false);
@@ -39,7 +34,7 @@ export default function EducationModals({ isEditMode = false, education }: Educa
                 <DialogContent>
                     <DialogTitle>Edit education</DialogTitle>
                     <Separator />
-                    <DialogDescription>
+                    <DialogDescription className="text-base text-neutral-700">
                         Update and refine the details of your education.
                     </DialogDescription>
                     <form action={editFormAction} className="flex flex-col gap-2.5">
@@ -92,7 +87,7 @@ export default function EducationModals({ isEditMode = false, education }: Educa
             <DialogContent>
                 <DialogTitle>Add education</DialogTitle>
                 <Separator />
-                <DialogDescription>
+                <DialogDescription className="text-base text-neutral-700">
                     Add details about your education to showcase your academic journey. This information will help others understand your academic achievements and qualifications.
                 </DialogDescription>
                 <form action={createFormAction} className="flex flex-col gap-2.5">

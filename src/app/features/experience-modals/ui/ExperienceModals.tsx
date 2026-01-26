@@ -4,17 +4,12 @@ import { Textarea } from "@/app/shared/ui/textarea";
 import { useActionState, useState, useEffect } from "react";
 import { createExperienceAction } from "../api/experience-create-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
-import { TExperience } from "@/app/entities/experience";
 import { PencilIcon, PlusIcon } from "lucide-react";
 import { format } from "date-fns";
 import { experienceEditAction } from "../api/experience-edit-action";
 import ExperienceDeleteModal from "./ExperienceDeleteModal";
 import { Separator } from "@/app/shared/ui/separator";
-
-interface ExperienceModalsProps {
-    isEditMode?: boolean;
-    experience?: TExperience;
-}
+import { ExperienceModalsProps } from "../model/types";
 
 export default function ExperienceModals({ isEditMode = false, experience }: ExperienceModalsProps) {
     const [open, setOpen] = useState(false);
@@ -39,7 +34,7 @@ export default function ExperienceModals({ isEditMode = false, experience }: Exp
                 <DialogContent>
                     <DialogTitle>Edit experience</DialogTitle>
                     <Separator />
-                    <DialogDescription>
+                    <DialogDescription className="text-base text-neutral-700">
                         Update and refine the details of your professional experience.
                     </DialogDescription>
                     <form action={editFormAction} className="flex flex-col gap-2.5">
@@ -92,7 +87,7 @@ export default function ExperienceModals({ isEditMode = false, experience }: Exp
             <DialogContent>
                 <DialogTitle>Add experience</DialogTitle>
                 <Separator />
-                <DialogDescription>
+                <DialogDescription className="text-base text-neutral-700">
                     Add details about your professional experience to showcase your work history. This information will help others understand your career journey and achievements.
                 </DialogDescription>
                 <form action={createFormAction} className="flex flex-col gap-2.5">

@@ -1,10 +1,6 @@
 "use client";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import { createContext, useContext } from "react";
-
-interface CurrentUserProfileContextValue {
-   profile: ProfileType;
-}
+import { CurrentUserProfileContextValue } from "./types";
 
 export const CurrentUserProfileContext = createContext<CurrentUserProfileContextValue | undefined>(undefined);
 
