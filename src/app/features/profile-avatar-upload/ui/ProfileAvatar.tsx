@@ -37,33 +37,19 @@ export default function ProfileAvatarUpload({
    };
 
    if (isJustAvatar) {
+      const size = "h-[48px] w-[48px]";
       return (
-         <>
-            {imageUrl && (
-               <div className="relative inline-block rounded-full object-cover">
-                  <Image
-                     src={imageUrl}
-                     alt="Profile Avatar"
-                     fill
-                     className="rounded-full object-cover"
-                  />
-               </div>
-            )}
-
-            {!imageUrl && (
-               <div className="inline-block rounded-full object-cover h-[52px] w-[52px]">
-                  <Link href="/profile">
-                     <Image
-                        src="/default-avatar.svg"
-                        alt="Profile Avatar"
-                        width={52}
-                        height={52}
-                        className="rounded-full object-cover"
-                     />
-                  </Link>
-               </div>
-            )}
-         </>
+         <div className={`relative shrink-0 rounded-full overflow-hidden ${size}`}>
+            <Link href="/profile" className="block size-full">
+               <Image
+                  src={imageUrl || "/default-avatar.svg"}
+                  alt="Profile Avatar"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover size-full"
+               />
+            </Link>
+         </div>
       );
    }
 
