@@ -4,7 +4,6 @@ import { prismaAdapter } from "better-auth/adapters/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { nextCookies } from "better-auth/next-js";
-import { Result } from "@/app/types";
 
 export const auth = betterAuth({
    database: prismaAdapter(prisma, {
@@ -16,7 +15,7 @@ export const auth = betterAuth({
    plugins: [nextCookies()],
 });
 
-export const getUserId = async (): Promise<Result<string>> => {
+export const getUserId = async (): Promise<{ success: true; data: string } | { success: false; error: string }> => {
    const session = await auth.api.getSession({
       headers: await headers(),
    });

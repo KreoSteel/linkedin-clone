@@ -66,7 +66,7 @@ export const avatarUploadAction = async (
       }
 
       const updatedUser = await editProfile(currentUser.data, validatedUrl.data);
-      if (!updatedUser) {
+      if (!updatedUser.success) {
          return {
             success: false,
             error: "Failed to update user avatar",

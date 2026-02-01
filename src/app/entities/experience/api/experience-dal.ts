@@ -1,4 +1,3 @@
-"use server";
 import { prisma } from "@/app/shared/api/prisma";
 import { TCreateExperience, TExperience, TUpdateExperience } from "../model/experience-schema";
 import { Result } from "@/app/types";

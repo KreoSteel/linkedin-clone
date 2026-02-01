@@ -1,6 +1,6 @@
 "use server";
 import { createPost } from "@/app/entities/post/api/WRITE-post-dal";
-import { createPostSchema, TPostWithAuthor } from "@/app/entities/post/model/post-schema";
+import { createPostSchema } from "@/app/entities/post/model/post-schema";
 import { getUserId } from "@/app/shared/api/auth";
 import { Result } from "@/app/types";
 import { PostMediaType, PostVisibility } from "@/generated/prisma/enums";

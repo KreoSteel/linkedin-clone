@@ -27,7 +27,7 @@ export const createPost = async (userId: string, post: TCreatePost): Promise<Res
         return {
             success: false,
             error: "Failed to create post",
-        }
+        };
     }
 }
 
@@ -75,6 +75,6 @@ export const updatePost = async (postId: string, userId: string, post: TUpdatePo
         return {
             success: false,
             error: "Failed to update post",
-        }
+        };
     }
 }

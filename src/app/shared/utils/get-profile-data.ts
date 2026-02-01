@@ -14,10 +14,12 @@ export async function getProfileData(userId: string): Promise<Result<ProfileData
             error: userProfile.error,
         };
     }
-    const userSkills = await getSkillsByUserId(userId);
-    const allSkills = await getSkills("");
-    const experiences = await getUserExperiences(userId);
-    const educations = await getUserEducations(userId);
+    const [userSkills, allSkills, experiences, educations] = await Promise.all([
+        getSkillsByUserId(userId),
+        getSkills(""),
+        getUserExperiences(userId),
+        getUserEducations(userId),
+    ]);
 
     if (!userSkills.success) {
         return {

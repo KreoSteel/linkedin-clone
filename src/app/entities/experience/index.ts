@@ -13,6 +13,7 @@ export {
     updateExperience,
     deleteExperience,
 } from "./api/experience-dal";
+export { getUserExperiencesOptions } from "./api/experience-query-options";
 
 export type {
     TExperience,

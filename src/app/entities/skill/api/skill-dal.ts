@@ -1,4 +1,3 @@
-"use server";
 import { prisma } from "@/app/shared/api/prisma";
 import type {
    AddSkillToUserType,
@@ -48,18 +47,6 @@ export const getSkills = async (
 export const getSkillsByUserId = async (
    userId: string
 ): Promise<Result<UserSkillType[]>> => {
-   const existingSkills = await prisma.userSkill.findMany({
-      where: {
-         userId,
-      },
-   });
-   if (!existingSkills) {
-      return {
-         success: false,
-         error: "No skills found",
-      };
-   }
-
    try {
       const skills = await prisma.userSkill.findMany({
          where: {
