@@ -7,7 +7,7 @@ export const postSchema = z.object({
     authorId: z.string(),
     content: z.string().min(1, { message: "Content is required" }).max(2600, { message: "Content must be less than 2600 characters" }),
     mediaType: z.enum([PostMediaType.IMAGE, PostMediaType.VIDEO]).nullable(),
-    mediaUrl: z.url().nullable(),
+    mediaUrl: z.url().nullable().or(z.literal(null)),
     visibility: z.enum([PostVisibility.PUBLIC, PostVisibility.CONNECTIONS, PostVisibility.PRIVATE]).default(PostVisibility.PUBLIC),
     createdAt: z.date(),
     updatedAt: z.date(),

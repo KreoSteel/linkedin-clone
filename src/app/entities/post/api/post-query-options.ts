@@ -1,4 +1,3 @@
-
 import { queryOptions } from "@tanstack/react-query";
 import { getAllPostsAction } from "./GET-posts-action";
 

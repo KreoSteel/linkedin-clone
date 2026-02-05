@@ -1,4 +1,4 @@
-import { createAdminClient } from "@/app/shared/api/supabase/admin";
+import { createAdminClient } from "../supabase/admin";
 import { Result } from "@/app/types";
 
 export const uploadAvatarImage = async (

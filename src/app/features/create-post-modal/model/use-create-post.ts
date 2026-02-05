@@ -5,8 +5,7 @@ export const useCreatePost = () => {
     const [content, setContent] = useState("");
     const [visibility, setVisibility] = useState<PostVisibility>(PostVisibility.PUBLIC);
     const [mediaPreview, setMediaPreview] = useState<{ type: "image" | "video"; url: string; file: File } | null>(null);
-    const imageInputRef = useRef<HTMLInputElement>(null);
-    const videoInputRef = useRef<HTMLInputElement>(null);
+    const mediaInputRef = useRef<HTMLInputElement>(null);
     
     useEffect(() => {
         return () => {
@@ -17,22 +16,22 @@ export const useCreatePost = () => {
     }, [mediaPreview]);
 
     const handleFileSelect = (type: "image" | "video") => {
-        const input = type === "image" ? imageInputRef.current : videoInputRef.current;
-        input?.click();
+        if (mediaInputRef.current) {
+            mediaInputRef.current.accept = type === "image" ? "image/*" : "video/*";
+            mediaInputRef.current.click();
+        }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: "image" | "video") => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        
         if (file) {
-            if (mediaPreview) {
-                URL.revokeObjectURL(mediaPreview.url);
-            }
-
+            if (mediaPreview) URL.revokeObjectURL(mediaPreview.url);
+            
+            const type = file.type.startsWith("image/") ? "image" as const : "video" as const;
             const previewUrl = URL.createObjectURL(file);
             setMediaPreview({ type, url: previewUrl, file });
         }
-
-        e.target.value = "";
     };
 
     const handleRemovePreview = () => {
@@ -49,8 +48,7 @@ export const useCreatePost = () => {
         setVisibility,
         mediaPreview,
         setMediaPreview,
-        imageInputRef,
-        videoInputRef,
+        mediaInputRef,
         handleFileSelect,
         handleFileChange,
         handleRemovePreview,

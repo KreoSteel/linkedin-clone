@@ -1,12 +1,22 @@
 import { prisma } from "@/app/shared/api/prisma";
 import type { EditProfileType, ProfileType } from "../model/profile-schema";
 import { Result } from "@/app/types";
-import { User } from "@/generated/prisma/client";
 
-export const getProfile = async (userId: string): Promise<Result<User>> => {
+export const getProfile = async (userId: string): Promise<Result<ProfileType>> => {
    const user = await prisma.user.findUnique({
       where: {
          id: userId,
+      },
+      select: {
+         id: true,
+         firstName: true,
+         lastName: true,
+         headline: true,
+         location: true,
+         biography: true,
+         avatar: true,
+         backgroundPhoto: true,
+         email: true,
       },
    });
 

@@ -5,9 +5,6 @@ import { uploadAvatarImage } from "@/app/shared/api/supabase-storage/upload-avat
 import { revalidatePath } from "next/cache";
 import { Result } from "@/app/types";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
-
 export const avatarUploadAction = async (
    prevState: unknown,
    formData: FormData
@@ -22,26 +19,10 @@ export const avatarUploadAction = async (
 
    const file = formData.get("file") as File;
 
-   if (file.size === 0) {
+   if (!file || file.size === 0) {
       return {
          success: false,
          error: "File not found",
-      };
-   }
-
-   if (file.size > MAX_FILE_SIZE) {
-      return {
-         success: false,
-         error: "File size exceeds the maximum allowed size of 5MB",
-      };
-   }
-
-   if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      return {
-         success: false,
-         error:
-            "Invalid file type. Allowed types are: " +
-            ALLOWED_FILE_TYPES.join(", "),
       };
    }
 

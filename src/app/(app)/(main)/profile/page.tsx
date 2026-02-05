@@ -3,6 +3,7 @@ import ProfilePageClient from "@/app/pages/profile/ProfilePageClient";
 import { getUserId } from "@/app/shared/api/auth";
 import { redirect } from "next/navigation";
 import { getProfileData } from "@/app/shared/utils/get-profile-data";
+import { User } from "@/generated/prisma/client";
 
 export default async function ProfilePage() {
    const userId = await getUserId();
@@ -15,7 +16,7 @@ export default async function ProfilePage() {
    }
    return (
       <ProfilePageClient
-         user={profileData.data.userProfile}
+         user={profileData.data.userProfile as User}
          userSkills={profileData.data.userSkills}
          allSkills={profileData.data.allSkills}
          experiences={profileData.data.experiences}

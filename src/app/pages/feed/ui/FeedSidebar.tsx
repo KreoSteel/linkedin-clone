@@ -2,14 +2,13 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getProfileOptions } from "@/app/entities/profile/api/profile-query-options";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 import ProfileCard from "@/app/widgets/profile-card/ui/ProfileCard";
 import ConnectionsCard from "@/app/features/connections-card/ui/ConnectionsCard";
-import { User } from "@/generated/prisma/client";
+import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
 interface FeedSidebarProps {
   userId: string;
-  initialProfile: User;
+  initialProfile: ProfileType;
 }
 
 export default function FeedSidebar({ userId, initialProfile }: FeedSidebarProps) {
@@ -20,7 +19,7 @@ export default function FeedSidebar({ userId, initialProfile }: FeedSidebarProps
 
   return (
     <aside className="flex w-56 shrink-0 flex-col gap-4">
-      <ProfileCard profile={profile! as ProfileType} isForFeed={true} />
+      <ProfileCard profile={profile} isForFeed={true} />
       <ConnectionsCard />
     </aside>
   );

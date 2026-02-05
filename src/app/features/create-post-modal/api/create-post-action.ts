@@ -2,6 +2,7 @@
 import { createPost } from "@/app/entities/post/api/WRITE-post-dal";
 import { createPostSchema } from "@/app/entities/post/model/post-schema";
 import { getUserId } from "@/app/shared/api/auth";
+import { uploadMediaFeed } from "@/app/shared/api/supabase-storage/upload-media-feed";
 import { Result } from "@/app/types";
 import { PostMediaType, PostVisibility } from "@/generated/prisma/enums";
 import { revalidatePath } from "next/cache";
@@ -15,23 +16,52 @@ export const createPostAction = async (prevState: unknown, formData: FormData): 
         }
     }
 
-    const mediaTypeValue = formData.get("mediaType");
-    const validatedData = createPostSchema.safeParse({
-        authorId: userId.data,
-        content: formData.get("content"),
-        mediaType: mediaTypeValue ? (mediaTypeValue as PostMediaType) : null,
-        mediaUrl: formData.get("mediaUrl") || null,
-        visibility: formData.get("visibility") as PostVisibility,
-    })
+    const content = formData.get("content") as string;
+    const visibility = formData.get("visibility") as PostVisibility;
+    const file = formData.get("file") as File | null;
 
-    if (!validatedData.success) {
+    if (!content || content.trim().length === 0) {
         return {
             success: false,
-            error: "Invalid data: " + validatedData.error.issues.map((issue) => issue.message).join(", "),
+            error: "Post content is required"
         }
     }
 
     try {
+        let mediaUrl: string | null = null;
+        let mediaType: PostMediaType | null = null;
+
+        if (file && file.size > 0) {
+            const uploadResult = await uploadMediaFeed(userId.data, file);
+            
+            if (!uploadResult.success) {
+                return {
+                    success: false,
+                    error: uploadResult.error
+                }
+            }
+
+            mediaUrl = uploadResult.data.url;
+            mediaType = file.type.startsWith("image/") 
+                ? PostMediaType.IMAGE 
+                : PostMediaType.VIDEO;
+        }
+
+        const validatedData = createPostSchema.safeParse({
+            authorId: userId.data,
+            content,
+            mediaType,
+            mediaUrl,
+            visibility,
+        })
+
+        if (!validatedData.success) {
+            return {
+                success: false,
+                error: "Invalid data: " + validatedData.error.issues.map((issue) => issue.message).join(", "),
+            }
+        }
+
         const createdPost = await createPost(userId.data, validatedData.data);
         if (!createdPost.success) {
             return {

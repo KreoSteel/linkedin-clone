@@ -27,6 +27,8 @@ export const registerAction = async (prevState: unknown, formData: FormData): Pr
             name,
             email: validatedData.data.email,
             password: validatedData.data.password,
+            firstName: validatedData.data.firstName,
+            lastName: validatedData.data.lastName,
          },
       });
    } catch (error) {

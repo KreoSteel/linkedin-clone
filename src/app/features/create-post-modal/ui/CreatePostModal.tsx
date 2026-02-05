@@ -6,14 +6,16 @@ import { Button } from "@/app/shared/ui/button";
 import { Label } from "@/app/shared/ui/label";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/app/shared/ui/dropdown-menu";
 import { Image as ImageIcon, Video, ChevronDown, X } from "lucide-react";
-import { PostMediaType, PostVisibility } from "@/generated/prisma/enums";
+import { PostVisibility } from "@/generated/prisma/enums";
 import { visibilityOptions, characterCount, maxCharacters, remainingCharacters } from "@/app/entities/post/model/const";
 import { useCreatePost } from "../model/use-create-post";
 import { useEffect, useActionState, useState } from "react";
 import { createPostAction } from "../api/create-post-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreatePostModal() {
+   const queryClient = useQueryClient();
    const [open, setOpen] = useState(false);
    const {
       content,
@@ -21,21 +23,23 @@ export default function CreatePostModal() {
       visibility,
       setVisibility,
       mediaPreview,
-      imageInputRef,
-      videoInputRef,
+      mediaInputRef,
       handleFileSelect,
-      handleFileChange, handleRemovePreview,
+      handleFileChange,
+      handleRemovePreview,
    } = useCreatePost();
-   const [state, formAction] = useActionState(createPostAction, undefined);
+   const [state, formAction, isPending] = useActionState(createPostAction, undefined);
    useStateToast(state);
 
    useEffect(() => {
       if (state?.success) {
          setOpen(false);
          setContent("");
+         queryClient.invalidateQueries({ queryKey: ["posts"] });
          handleRemovePreview();
       }
-   }, [state, setContent, handleRemovePreview]);
+   }, [state, setContent, handleRemovePreview, queryClient]);
+
 
    const selectedVisibility = visibilityOptions.find((option) => option.value === visibility)!;
 
@@ -55,13 +59,6 @@ export default function CreatePostModal() {
             <Separator />
 
             <form action={formAction} className="flex flex-col gap-6">
-               {mediaPreview && (
-                  <input 
-                     type="hidden" 
-                     name="mediaType" 
-                     value={mediaPreview.type === "image" ? PostMediaType.IMAGE : PostMediaType.VIDEO} 
-                  />
-               )}
                <input type="hidden" name="visibility" value={visibility} />
                <div className="flex flex-col gap-2">
                   <Textarea
@@ -75,23 +72,19 @@ export default function CreatePostModal() {
                   <div className="flex items-center justify-between">
                      <div className="flex items-center gap-4">
                         <input
-                           ref={imageInputRef}
+                           ref={mediaInputRef}
                            type="file"
+                           name="file"
                            accept="image/*"
                            className="hidden"
-                           onChange={(e) => handleFileChange(e, "image")}
-                        />
-                        <input
-                           ref={videoInputRef}
-                           type="file"
-                           accept="video/*"
-                           className="hidden"
-                           onChange={(e) => handleFileChange(e, "video")}
+                           disabled={isPending}
+                           onChange={handleFileChange}
                         />
                         <button
                            type="button"
                            className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors text-neutral-700"
                            onClick={() => handleFileSelect("image")}
+                           disabled={isPending}
                         >
                            <ImageIcon className="w-5 h-5 text-primary-500" />
                            <span className="text-sm font-medium">Photo</span>
@@ -100,6 +93,7 @@ export default function CreatePostModal() {
                            type="button"
                            className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-neutral-100 transition-colors text-neutral-700"
                            onClick={() => handleFileSelect("video")}
+                           disabled={isPending}
                         >
                            <Video className="w-5 h-5 text-green-600" />
                            <span className="text-sm font-medium">Video</span>
@@ -122,6 +116,7 @@ export default function CreatePostModal() {
                         type="button"
                         onClick={handleRemovePreview}
                         className="absolute top-2 right-2 bg-black/70 hover:bg-black/90 text-white rounded-full p-1.5 transition-colors"
+                        disabled={isPending}
                      >
                         <X className="w-4 h-4" />
                      </button>
@@ -133,7 +128,7 @@ export default function CreatePostModal() {
                      <Label className="text-sm text-neutral-600">Visibility:</Label>
                      <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                           <Button variant="outline" size="sm" className="gap-2">
+                           <Button variant="outline" size="sm" className="gap-2" disabled={isPending}>
                               <selectedVisibility.icon className="w-4 h-4" />
                               <span>{selectedVisibility.label}</span>
                               <ChevronDown className="w-4 h-4" />
@@ -159,10 +154,10 @@ export default function CreatePostModal() {
                   </div>
                   <Button
                      type="submit"
-                     disabled={!content.trim() || characterCount(content) > maxCharacters}
+                     disabled={!content.trim() || characterCount(content) > maxCharacters || isPending}
                      className="px-6"
                   >
-                     Post
+                     {isPending ? "Posting..." : "Post"}
                   </Button>
                </div>
             </form>

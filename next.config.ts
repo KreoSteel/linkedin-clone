@@ -19,6 +19,13 @@ const nextConfig: NextConfig = {
          },
       ],
    },
+   
+   experimental: {
+      serverActions: {
+         bodySizeLimit: "100mb", // Server action payload limit
+      },
+      middlewareClientMaxBodySize: "100mb", // Middleware body size limit (for form uploads)
+   },
 
    reactCompiler: true,
 };
