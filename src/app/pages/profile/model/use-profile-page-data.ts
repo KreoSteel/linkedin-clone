@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProfileOptions } from "@/app/entities/profile/api/profile-query-options";
-import { getUserEducationsOptions } from "@/app/entities/education/api/education-query-options";
-import { getUserExperiencesOptions } from "@/app/entities/experience/api/experience-query-options";
-import { getSkillsByUserIdOptions } from "@/app/entities/skill/api/skill-query-options";
-import { getSkillsOptions } from "@/app/entities/skill/api/skill-query-options";
+import { 
+  getProfileOptions,
+  getUserEducationsOptions,
+  getUserExperiencesOptions,
+  getSkillsByUserIdOptions,
+  getSkillsOptions
+} from "@/app/features/profile";
 import { ProfilePageClientProps } from "./types";
 
 

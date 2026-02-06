@@ -1,5 +1,5 @@
 import { Result } from "@/app/types";
-import { ProfileData, ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { type ProfileData, type ProfileType } from "@/app/entities/profile";
 import { getProfile } from "@/app/entities/profile/api/profile-dal";
 import { getSkills, getSkillsByUserId } from "@/app/entities/skill/api/skill-dal";
 import { getUserExperiences } from "@/app/entities/experience/api/experience-dal";

@@ -1,6 +1,16 @@
 "use client";
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger, DialogDescription, Label, Input } from "@/app/shared/ui";
-import { Textarea } from "@/app/shared/ui/textarea";
+import { 
+  Button, 
+  Dialog, 
+  DialogContent, 
+  DialogTitle, 
+  DialogTrigger, 
+  DialogDescription, 
+  Label, 
+  Input,
+  Textarea,
+  Separator
+} from "@/app/shared/ui";
 import { useActionState, useState, useEffect } from "react";
 import { createExperienceAction } from "../api/experience-create-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
@@ -8,7 +18,6 @@ import { PencilIcon, PlusIcon } from "lucide-react";
 import { format } from "date-fns";
 import { experienceEditAction } from "../api/experience-edit-action";
 import ExperienceDeleteModal from "./ExperienceDeleteModal";
-import { Separator } from "@/app/shared/ui/separator";
 import { ExperienceModalsProps } from "../model/types";
 
 export default function ExperienceModals({ isEditMode = false, experience }: ExperienceModalsProps) {

@@ -1,9 +1,9 @@
-import HeaderComponent from "@/app/widgets/header/ui/Header";
+import { Header } from "@/app/widgets/header";
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
    return (
       <>
-         <HeaderComponent />
+         <Header />
          {children}
       </>
    );

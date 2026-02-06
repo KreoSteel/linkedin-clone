@@ -2,7 +2,7 @@
 import ProfilePageClient from "@/app/pages/profile/ProfilePageClient";
 import { getUserId } from "@/app/shared/api/auth";
 import { redirect } from "next/navigation";
-import { getProfileData } from "@/app/shared/utils/get-profile-data";
+import { getProfileData } from "@/app/features/profile/api/get-profile-data";
 import { User } from "@/generated/prisma/client";
 
 export default async function ProfilePage() {

@@ -1,6 +1,16 @@
 "use client";
-import { Button, Dialog, DialogContent, DialogTitle, DialogTrigger, DialogDescription, Label, Input } from "@/app/shared/ui";
-import { Textarea } from "@/app/shared/ui/textarea";
+import { 
+  Button, 
+  Dialog, 
+  DialogContent, 
+  DialogTitle, 
+  DialogTrigger, 
+  DialogDescription, 
+  Label, 
+  Input,
+  Textarea,
+  Separator
+} from "@/app/shared/ui";
 import { useActionState, useState, useEffect } from "react";
 import { educationCreateAction } from "../api/education-create-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
@@ -8,7 +18,6 @@ import { PencilIcon, PlusIcon } from "lucide-react";
 import { format } from "date-fns";
 import { educationEditAction } from "../api/education-edit-action";
 import EducationDeleteModal from "./EducationDeleteModal";
-import { Separator } from "@/app/shared/ui/separator";
 import { EducationModalsProps } from "../model/types";
 
 export default function EducationModals({ isEditMode = false, education }: EducationModalsProps) {

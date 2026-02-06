@@ -1,6 +1,8 @@
 import Image from "next/image";
-import { visibilityOptions } from "@/app/entities/post/model/const";
+import { visibilityOptions } from "@/app/entities/post";
 import { PostVisibility } from "@/generated/prisma/enums";
+import { EllipsisVerticalIcon } from "lucide-react";
+import { Button } from "@/app/shared/ui";
 
 interface PostAuthorRowProps {
   name: string;
@@ -49,6 +51,11 @@ export function PostAuthorRow({
             </>
           )}
         </div>
+      </div>
+      <div className="ml-auto">
+        <Button variant="ghost" size="icon" className="text-neutral-500 hover:text-primary-500">
+          <EllipsisVerticalIcon className="w-4 h-4" />
+        </Button>
       </div>
     </div>
   );

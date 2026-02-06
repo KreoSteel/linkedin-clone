@@ -1,7 +1,7 @@
 "use server";
 
 import { getProfile } from "@/app/entities/profile/api/profile-dal";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { type ProfileType } from "@/app/entities/profile";
 import { Result } from "@/app/types";
 
 

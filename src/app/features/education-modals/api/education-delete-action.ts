@@ -1,5 +1,5 @@
 "use server";
-import { deleteEducation, getEducationById } from "@/app/entities/education";
+import { deleteEducation, getEducationById } from "@/app/entities/education/api/education-dal";
 import { getUserId } from "@/app/shared/api/auth";
 import { Result } from "@/app/types";
 import { revalidatePath } from "next/cache";

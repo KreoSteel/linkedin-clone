@@ -1,7 +1,7 @@
 "use server";
 import { prisma } from "@/app/shared/api/prisma";
 import { Result } from "@/app/types";
-import { UserSkillType } from "@/app/entities/skill/model/skill-schema";
+import { type UserSkillType } from "@/app/entities/skill";
 import { getSkillsByUserId } from "@/app/entities/skill/api/skill-dal";
 import { revalidatePath } from "next/cache";
 

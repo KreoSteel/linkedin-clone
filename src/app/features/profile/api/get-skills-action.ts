@@ -1,7 +1,7 @@
 "use server";
 
 import { getSkills, getSkillsByUserId } from "@/app/entities/skill/api/skill-dal";
-import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
+import { type SkillType, type UserSkillType } from "@/app/entities/skill";
 import { Result } from "@/app/types";
 
 export const getSkillsAction = async (query: string): Promise<Result<SkillType[]>> => {

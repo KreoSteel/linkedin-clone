@@ -1,6 +1,10 @@
 export { Button } from "./button";
 export { Input } from "./input";
 export { Label } from "./label";
+export { Separator } from "./separator";
+export { Textarea } from "./textarea";
+export { Checkbox } from "./checkbox";
+export { Toaster } from "./sonner";
 export { Popover, PopoverTrigger, PopoverContent } from "./popover";
 export { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "./command";
 export {
@@ -15,3 +19,20 @@ export {
   DialogPortal,
   DialogClose,
 } from "./dialog";
+export {
+  DropdownMenu,
+  DropdownMenuPortal,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+} from "./dropdown-menu";

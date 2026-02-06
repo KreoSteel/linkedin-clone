@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { PostVisibility } from "@/generated/prisma/enums";
 
-export const useCreatePost = () => {
+export const usePostComposer = () => {
     const [content, setContent] = useState("");
     const [visibility, setVisibility] = useState<PostVisibility>(PostVisibility.PUBLIC);
     const [mediaPreview, setMediaPreview] = useState<{ type: "image" | "video"; url: string; file: File } | null>(null);

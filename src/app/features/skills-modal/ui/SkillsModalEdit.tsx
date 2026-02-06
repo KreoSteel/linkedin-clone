@@ -1,11 +1,27 @@
 "use client";
-import { Button, Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, Popover, PopoverTrigger, PopoverContent, Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/app/shared/ui";
+import { 
+  Button, 
+  Dialog, 
+  DialogTrigger, 
+  DialogContent, 
+  DialogTitle, 
+  DialogDescription, 
+  Popover, 
+  PopoverTrigger, 
+  PopoverContent, 
+  Command, 
+  CommandInput, 
+  CommandList, 
+  CommandEmpty, 
+  CommandGroup, 
+  CommandItem,
+  Separator
+} from "@/app/shared/ui";
 import { useSkillsModal } from "../model/use-skills-modal";
-import { Separator } from "@/app/shared/ui/separator";
 import { useEffect, useMemo, useState } from "react";
 import { PencilIcon, PlusIcon, XIcon } from "lucide-react";
 import { SkillsModalProps } from "../model/types";
-import { SkillType } from "@/app/entities/skill/model/skill-schema";
+import { type SkillType } from "@/app/entities/skill";
 
 export default function SkillsModal({
    userSkills,

@@ -1,3 +1,2 @@
-export { skillSchema, type SkillType } from "./model/skill-schema";
-export { getSkills, getSkillsByUserId, addSkillToUser, removeSkillFromUser } from "./api/skill-dal";
-export { getSkillsOptions, getSkillsByUserIdOptions } from "./api/skill-query-options";
+// Schemas and types only
+export { skillSchema, type SkillType, type UserSkillType, type AddSkillToUserType } from "./model/skill-schema";

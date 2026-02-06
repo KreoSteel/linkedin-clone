@@ -1,5 +1,6 @@
 "use server";
-import { getEducationById, updateEducation, updateEducationSchema } from "@/app/entities/education";
+import { updateEducationSchema } from "@/app/entities/education";
+import { getEducationById, updateEducation } from "@/app/entities/education/api/education-dal";
 import { getUserId } from "@/app/shared/api/auth";
 import { revalidatePath } from "next/cache";
 import { Result } from "@/app/types";

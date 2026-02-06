@@ -1,6 +1,6 @@
-import { SkillType, UserSkillType } from "@/app/entities/skill/model/skill-schema";
-import { TExperience } from "@/app/entities/experience";
-import { TEducation } from "@/app/entities/education/model/education-schema";
+import { type SkillType, type UserSkillType } from "@/app/entities/skill";
+import { type TExperience } from "@/app/entities/experience";
+import { type TEducation } from "@/app/entities/education";
 import { User } from "@/generated/prisma/client";
 
 export interface ProfilePageClientProps {

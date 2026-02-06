@@ -1,6 +1,6 @@
 "use server";
+import { createPostSchema } from "@/app/entities/post";
 import { createPost } from "@/app/entities/post/api/WRITE-post-dal";
-import { createPostSchema } from "@/app/entities/post/model/post-schema";
 import { getUserId } from "@/app/shared/api/auth";
 import { uploadMediaFeed } from "@/app/shared/api/supabase-storage/upload-media-feed";
 import { Result } from "@/app/types";

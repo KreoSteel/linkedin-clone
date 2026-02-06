@@ -1,12 +1,12 @@
 import { FaBell, FaLinkedin } from "react-icons/fa";
 import { FaHouse, FaUsers, FaBriefcase, FaMessage } from "react-icons/fa6";
 import Link from "next/link";
-import SearchBarComponent from "@/app/features/search-bar/ui/SearchBar";
+import { SearchBar } from "@/app/features/search-bar";
 import HeaderDropdown from "./HeaderDropdown";
 import { getUserId } from "@/app/shared/api/auth";
+import { type ProfileType } from "@/app/entities/profile";
 import { getProfile } from "@/app/entities/profile/api/profile-dal";
 import { redirect } from "next/navigation";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
 
 export default async function HeaderComponent() {
    const userId = await getUserId();
@@ -26,7 +26,7 @@ export default async function HeaderComponent() {
             </Link>
 
             <div className="shrink-0">
-               <SearchBarComponent />
+               <SearchBar />
             </div>
 
             <nav className="flex flex-1 items-center justify-end gap-1">

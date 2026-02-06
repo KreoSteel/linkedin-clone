@@ -1,6 +1,6 @@
 "use client";
 
-import ProfileCard from "@/app/widgets/profile-card/ui/ProfileCard";
+import { ProfileCard } from "@/app/widgets/profile-card";
 import { ProfileProviders } from "@/app/(app)/providers/profile-providers";
 import AboutSkillsSection from "@/app/widgets/profile-sections/about-skills-section/AboutSkillsSection";
 import ExperienceSection from "@/app/widgets/profile-sections/experience-section/ExperienceSection";

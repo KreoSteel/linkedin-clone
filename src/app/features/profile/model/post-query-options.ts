@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getAllPostsAction } from "./GET-posts-action";
+import { getAllPostsAction } from "@/app/entities/post";
 
 export const getAllPostsOptions = () => 
     queryOptions({

@@ -3,13 +3,13 @@ import {
    DialogContent,
    DialogTitle,
    DialogTrigger,
-} from "@/app/shared/ui/dialog";
-import { Button } from "@/app/shared/ui/button";
+   Button,
+   Label,
+   Input,
+   Separator,
+   Textarea
+} from "@/app/shared/ui";
 import { FaEdit } from "react-icons/fa";
-import { Label } from "@/app/shared/ui/label";
-import { Input } from "@/app/shared/ui/input";
-import { Separator } from "@/app/shared/ui/separator";
-import { Textarea } from "@/app/shared/ui/textarea";
 import { useActionState, useEffect } from "react";
 import { editProfileAction } from "../api/edit-profile-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";

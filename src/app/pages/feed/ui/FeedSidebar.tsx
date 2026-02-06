@@ -1,10 +1,10 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getProfileOptions } from "@/app/entities/profile/api/profile-query-options";
-import ProfileCard from "@/app/widgets/profile-card/ui/ProfileCard";
-import ConnectionsCard from "@/app/features/connections-card/ui/ConnectionsCard";
-import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { getProfileOptions } from "@/app/features/profile";
+import { ProfileCard } from "@/app/widgets/profile-card";
+import { ConnectionsCard } from "@/app/features/connections-card";
+import type { ProfileType } from "@/app/entities/profile";
 
 interface FeedSidebarProps {
   userId: string;

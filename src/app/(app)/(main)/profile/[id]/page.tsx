@@ -2,7 +2,7 @@
 
 import ProfilePageClient from "@/app/pages/profile/ProfilePageClient";
 import { notFound } from "next/navigation";
-import { getProfileData } from "@/app/shared/utils/get-profile-data";
+import { getProfileData } from "@/app/features/profile/api/get-profile-data";
 import { getUserId } from "@/app/shared/api/auth";
 import { ProfilePageProps } from "@/app/pages/profile/model/types";
 import { User } from "@/generated/prisma/client";

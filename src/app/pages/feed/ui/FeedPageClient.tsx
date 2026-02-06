@@ -1,10 +1,9 @@
 "use client";
 
-import PostComposer from "@/app/widgets/post-composer/ui/PostComposer";
-import PostCard from "@/app/widgets/post-card/ui/PostCard";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
-import { PostCardPost } from "@/app/widgets/post-card/model/types";
-import { getAllPostsOptions } from "@/app/entities/post/api/post-query-options";
+import { PostComposer } from "@/app/widgets/post-composer";
+import { PostCard, type PostCardPost } from "@/app/widgets/post-card";
+import { type ProfileType } from "@/app/entities/profile";
+import { getAllPostsOptions } from "@/app/features/profile";
 import { useQuery } from "@tanstack/react-query";
 
 interface FeedPageClientProps {

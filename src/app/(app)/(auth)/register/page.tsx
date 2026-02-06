@@ -1,5 +1,5 @@
 import Image from "next/image";
-import RegisterForm from "@/app/features/auth/register/ui/RegisterForm";
+import { RegisterForm } from "@/app/features/auth/register";
 
 export default function RegisterPage() {
     return (

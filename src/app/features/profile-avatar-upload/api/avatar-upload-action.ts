@@ -1,5 +1,6 @@
 "use server";
-import { editProfile, editProfileSchema } from "@/app/entities/profile";
+import { editProfileSchema } from "@/app/entities/profile";
+import { editProfile } from "@/app/entities/profile/api/profile-dal";
 import { getUserId } from "@/app/shared/api/auth";
 import { uploadAvatarImage } from "@/app/shared/api/supabase-storage/upload-avatar-image";
 import { revalidatePath } from "next/cache";

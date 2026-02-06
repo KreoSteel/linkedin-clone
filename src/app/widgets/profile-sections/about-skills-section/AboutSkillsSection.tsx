@@ -3,7 +3,7 @@ import { Gem } from "lucide-react";
 import { Fragment } from "react";
 import SkillsModalEdit from "../../../features/skills-modal/ui/SkillsModalEdit";
 import { AboutSkillsSectionProps } from "./model/types";
-import { UserSkillType } from "@/app/entities/skill/model/skill-schema";
+import { type UserSkillType } from "@/app/entities/skill";
 
 export default function AboutSkillsSection({
    biography,

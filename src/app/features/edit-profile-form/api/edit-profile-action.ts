@@ -1,6 +1,7 @@
 "use server";
 
-import { editProfile, editProfileSchema } from "@/app/entities/profile";
+import { editProfileSchema } from "@/app/entities/profile";
+import { editProfile } from "@/app/entities/profile/api/profile-dal";
 import { getUserId } from "@/app/shared/api/auth";
 import { revalidatePath } from "next/cache";
 import { Result } from "@/app/types";

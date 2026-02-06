@@ -1,5 +1,5 @@
 "use client";
-import ExperienceModals from "@/app/features/experience-modals/ui/ExperienceModals";
+import { ExperienceModals } from "@/app/features/experience-modals";
 import { Briefcase } from "lucide-react";
 import { format } from "date-fns";
 import { ExperienceSectionProps } from "./model/types";

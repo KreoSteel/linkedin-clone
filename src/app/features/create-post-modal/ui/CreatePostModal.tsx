@@ -1,20 +1,36 @@
 "use client";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/app/shared/ui/dialog";
-import { Separator } from "@/app/shared/ui/separator";
-import { Textarea } from "@/app/shared/ui/textarea";
-import { Button } from "@/app/shared/ui/button";
-import { Label } from "@/app/shared/ui/label";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/app/shared/ui/dropdown-menu";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogDescription, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger,
+  Separator,
+  Textarea,
+  Button,
+  Label,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger
+} from "@/app/shared/ui";
 import { Image as ImageIcon, Video, ChevronDown, X } from "lucide-react";
 import { PostVisibility } from "@/generated/prisma/enums";
-import { visibilityOptions, characterCount, maxCharacters, remainingCharacters } from "@/app/entities/post/model/const";
-import { useCreatePost } from "../model/use-create-post";
+import { visibilityOptions, characterCount, maxCharacters, remainingCharacters } from "@/app/entities/post";
+import { usePostComposer } from "../model/use-post-composer";
 import { useEffect, useActionState, useState } from "react";
 import { createPostAction } from "../api/create-post-action";
 import { useStateToast } from "@/app/shared/utils/use-state-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function CreatePostModal() {
+interface CreatePostModalProps {
+   triggerButton?: React.ReactNode;
+   openFilePickerType?: "image" | "video";
+}
+
+export default function CreatePostModal({ triggerButton, openFilePickerType }: CreatePostModalProps) {
    const queryClient = useQueryClient();
    const [open, setOpen] = useState(false);
    const {
@@ -27,26 +43,36 @@ export default function CreatePostModal() {
       handleFileSelect,
       handleFileChange,
       handleRemovePreview,
-   } = useCreatePost();
+   } = usePostComposer();
    const [state, formAction, isPending] = useActionState(createPostAction, undefined);
    useStateToast(state);
 
    useEffect(() => {
+      if (open && openFilePickerType) {
+         setTimeout(() => {
+            handleFileSelect(openFilePickerType);
+         }, 100);
+      }
+   }, [open, openFilePickerType])
+
+   useEffect(() => {
       if (state?.success) {
          setOpen(false);
-         setContent("");
          queryClient.invalidateQueries({ queryKey: ["posts"] });
-         handleRemovePreview();
       }
-   }, [state, setContent, handleRemovePreview, queryClient]);
+   }, [state, queryClient]);
 
 
    const selectedVisibility = visibilityOptions.find((option) => option.value === visibility)!;
 
    return (
       <Dialog open={open} onOpenChange={setOpen}>
-         <DialogTrigger className="w-full border border-neutral-400 rounded-full px-6 py-3 text-left hover:border-neutral-500 transition-colors">
-            <span className="text-sm text-neutral-700">Start a post</span>
+         <DialogTrigger asChild>
+            {triggerButton ? triggerButton :
+            <div className="w-full border border-neutral-400 rounded-full px-6 py-3 text-left hover:border-neutral-500 transition-colors">
+               <span className="text-sm text-neutral-700 pointer-events-none">Start a post</span>
+            </div>
+            }
          </DialogTrigger>
          <DialogContent className="max-w-2xl">
             <DialogHeader>

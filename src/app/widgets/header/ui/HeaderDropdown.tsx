@@ -1,20 +1,20 @@
 "use client";
-import { Button } from "@/app/shared/ui/button";
+import { 
+  Button,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/app/shared/ui";
 import { FaUser } from "react-icons/fa";
-import {
-   DropdownMenu,
-   DropdownMenuContent,
-   DropdownMenuGroup,
-   DropdownMenuItem,
-   DropdownMenuLabel,
-   DropdownMenuSeparator,
-   DropdownMenuTrigger,
-} from "@/app/shared/ui/dropdown-menu";
 import Link from "next/link";
 import { signOutAction } from "../api/sign-out-action";
 import { authClient } from "@/app/shared/api/auth-client";
 import Image from "next/image";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { type ProfileType } from "@/app/entities/profile";
 
 export default function HeaderDropdown({ profile }: { profile: ProfileType }) {
    const session = authClient.useSession();

@@ -1,5 +1,5 @@
-import { CurrentUserProfileContext } from "@/app/widgets/profile-card/model/profile-context";
-import { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { CurrentUserProfileContext } from "@/app/widgets/profile-card";
+import { type ProfileType } from "@/app/entities/profile";
 
 interface CurrentUserProfileProviderProps {
     children: React.ReactNode;

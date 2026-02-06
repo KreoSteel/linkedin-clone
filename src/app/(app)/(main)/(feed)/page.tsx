@@ -1,10 +1,10 @@
 import { getUserId } from "@/app/shared/api/auth";
+import { type ProfileType } from "@/app/entities/profile";
 import { getProfile } from "@/app/entities/profile/api/profile-dal";
 import { redirect } from "next/navigation";
 import FeedSidebar from "@/app/pages/feed/ui/FeedSidebar";
 import FeedPageClient from "@/app/pages/feed/ui/FeedPageClient";
-import { getAllPostsAction } from "@/app/entities/post/api/GET-posts-action";
-import type { ProfileType } from "@/app/entities/profile/model/profile-schema";
+import { getAllPostsAction } from "@/app/entities/post";
 
 export default async function Home() {
   const userId = await getUserId();

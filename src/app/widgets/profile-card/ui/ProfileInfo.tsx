@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import EditProfileForm from "@/app/features/edit-profile-form/ui/EditProfileForm";
+import { EditProfileForm } from "@/app/features/edit-profile-form";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ProfileInfoProps } from "../model/types";
 

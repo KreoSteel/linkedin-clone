@@ -1,7 +1,7 @@
 "use client";
 import { GraduationCap } from "lucide-react";
 import { format } from "date-fns";
-import EducationModals from "@/app/features/education-modals/ui/EducationModals";
+import { EducationModals } from "@/app/features/education-modals";
 import { EducationSectionProps } from "./model/types";
 
 export default function EducationSection({ educations, isCurrentUser }: EducationSectionProps) {

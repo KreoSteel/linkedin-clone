@@ -1,5 +1,6 @@
 "use server";
-import { createExperience, createExperienceSchema } from "@/app/entities/experience";
+import { createExperienceSchema } from "@/app/entities/experience";
+import { createExperience } from "@/app/entities/experience/api/experience-dal";
 import { revalidatePath } from "next/cache";
 import { getUserId } from "@/app/shared/api/auth";
 import { Result } from "@/app/types";

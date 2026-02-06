@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
-import { SkillType } from "@/app/entities/skill/model/skill-schema";
+import { type SkillType } from "@/app/entities/skill";
 import { useSaveSkillsMutation } from "./use-save-skills-mutation";
-import { useCurrentUserId } from "@/app/widgets/profile-card/model/profile-context";
+import { useCurrentUserId } from "@/app/widgets/profile-card";
 
 interface UseSkillsModalOptions {
     initialSkills?: SkillType[];
