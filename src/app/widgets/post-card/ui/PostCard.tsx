@@ -16,6 +16,7 @@ export default function PostCard({ post }: PostCardProps) {
           avatarUrl={post.author.avatar}
           createdAt={post.createdAt}
           visibility={post.visibility}
+          post={post}
         />
         <PostContent content={post.content} mediaType={post.mediaType} mediaUrl={post.mediaUrl} />
         <PostFooterSkeleton likes={post._count.likes} comments={post._count.comments} />

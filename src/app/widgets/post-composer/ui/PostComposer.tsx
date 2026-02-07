@@ -1,6 +1,6 @@
 import { UploadPhoto } from "@/app/features/create-post-button-actions/upload-photo";
 import { UploadVideo } from "@/app/features/create-post-button-actions/upload-video";
-import { CreatePostModal } from "@/app/features/create-post-modal";
+import { CreatePostModal } from "@/app/features/post-modals";
 import { ProfileAvatarUpload } from "@/app/features/profile-avatar-upload";
 import { type ProfileType } from "@/app/entities/profile";
 

@@ -1,8 +1,11 @@
 import Image from "next/image";
+import { PencilIcon } from "lucide-react";
 import { visibilityOptions } from "@/app/entities/post";
 import { PostVisibility } from "@/generated/prisma/enums";
-import { EllipsisVerticalIcon } from "lucide-react";
-import { Button } from "@/app/shared/ui";
+import { DropdownMenuItem } from "@/app/shared/ui";
+import CreatePostModal from "@/app/features/post-modals/ui/PostModal";
+import PostDropdownMenu from "@/app/features/post-dropdown-menu/PostDropdownMenu";
+import type { PostCardPost } from "../model/types";
 
 interface PostAuthorRowProps {
   name: string;
@@ -10,6 +13,7 @@ interface PostAuthorRowProps {
   avatarUrl?: string | null;
   createdAt: Date;
   visibility: PostVisibility;
+  post?: PostCardPost;
 }
 
 export function PostAuthorRow({
@@ -18,6 +22,7 @@ export function PostAuthorRow({
   avatarUrl,
   createdAt,
   visibility,
+  post,
 }: PostAuthorRowProps) {
   const visibilityOption = visibilityOptions.find((option) => option.value === visibility);
 
@@ -53,9 +58,24 @@ export function PostAuthorRow({
         </div>
       </div>
       <div className="ml-auto">
-        <Button variant="ghost" size="icon" className="text-neutral-500 hover:text-primary-500">
-          <EllipsisVerticalIcon className="w-4 h-4" />
-        </Button>
+        <PostDropdownMenu
+          editMenuItem={
+            post ? (
+              <CreatePostModal
+                post={post}
+                triggerButton={
+                  <DropdownMenuItem
+                    onSelect={(e) => e.preventDefault()}
+                    className="cursor-pointer flex items-center  h-12 gap-2 text-neutral-500 hover:text-primary-500"
+                  >
+                    <PencilIcon className="w-4 h-4" />
+                    <p className="text-base font-medium">Edit post</p>
+                  </DropdownMenuItem>
+                }
+              />
+            ) : undefined
+          }
+        />
       </div>
     </div>
   );

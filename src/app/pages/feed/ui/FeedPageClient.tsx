@@ -28,4 +28,3 @@ export default function FeedPageClient({ profile, initialPosts }: FeedPageClient
     </div>
   );
 }
-

@@ -1,5 +1,5 @@
 import { Image as ImageIcon } from "lucide-react";
-import CreatePostModal from "../../create-post-modal/ui/CreatePostModal";
+import CreatePostModal from "../../post-modals/ui/PostModal";
 
 export default function UploadPhoto() {
    return (
