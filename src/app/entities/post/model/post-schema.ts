@@ -19,7 +19,13 @@ export const createPostSchema = postSchema.omit({
     updatedAt: true,
 })
 
-export const updatePostSchema = createPostSchema.partial().omit({ authorId: true });
+export const updatePostSchema = postSchema.partial().pick({
+    id: true,
+    content: true,
+    visibility: true,
+    mediaType: true,
+    mediaUrl: true,
+});
 
 
 

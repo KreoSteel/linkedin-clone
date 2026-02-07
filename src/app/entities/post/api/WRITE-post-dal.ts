@@ -53,10 +53,10 @@ export const updatePost = async (postId: string, userId: string, post: TUpdatePo
                 id: postId
             },
             data: {
-                ...(post.content && { content: post.content }),
-                ...(post.mediaType && { mediaType: post.mediaType }),
-                ...(post.mediaUrl && { mediaUrl: post.mediaUrl }),
-                ...(post.visibility && { visibility: post.visibility }),
+                ...(post.content !== undefined && { content: post.content }),
+                ...("mediaType" in post && { mediaType: post.mediaType }),
+                ...("mediaUrl" in post && { mediaUrl: post.mediaUrl }),
+                ...(post.visibility !== undefined && { visibility: post.visibility }),
             },
             select: postSelect,
         })
