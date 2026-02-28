@@ -136,3 +136,27 @@ export const getPostById = async (postId: string): Promise<Result<TPost>> => {
         };
     }
 }
+
+
+export const deletePost = async (userId: string, postId: string): Promise<Result<void>> => {
+    try {
+        await prisma.post.delete({
+            where: {
+                id: postId,
+                authorId: userId
+            }
+        });
+
+        return {
+            success: true,
+            data: undefined
+        }
+
+    } catch (error) {
+        if (error instanceof Error) {
+            return { success: false, error: error.message };
+        }
+
+        return { success: false, error: "Failed to delete post" }
+    }
+}

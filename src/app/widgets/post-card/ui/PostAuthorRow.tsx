@@ -1,11 +1,13 @@
 import Image from "next/image";
-import { PencilIcon } from "lucide-react";
+import { PencilIcon, TrashIcon } from "lucide-react";
 import { visibilityOptions } from "@/app/entities/post";
 import { PostVisibility } from "@/generated/prisma/enums";
 import { DropdownMenuItem } from "@/app/shared/ui";
-import CreatePostModal from "@/app/features/post-modals/ui/PostModal";
+import CreatePostModal from "@/app/features/post-modals/ui/PostModals";
 import PostDropdownMenu from "@/app/features/post-dropdown-menu/PostDropdownMenu";
 import type { PostCardPost } from "../model/types";
+import PostDeleteModal from "@/app/features/post-modals/ui/PostDeleteModal";
+import PostModals from "@/app/features/post-modals/ui/PostModals";
 
 interface PostAuthorRowProps {
   name: string;
@@ -13,7 +15,7 @@ interface PostAuthorRowProps {
   avatarUrl?: string | null;
   createdAt: Date;
   visibility: PostVisibility;
-  post?: PostCardPost;
+  post: PostCardPost;
 }
 
 export function PostAuthorRow({
@@ -59,9 +61,9 @@ export function PostAuthorRow({
       </div>
       <div className="ml-auto">
         <PostDropdownMenu
-          editMenuItem={
+          editcreateMenuItem={
             post ? (
-              <CreatePostModal
+              <PostModals
                 post={post}
                 triggerButton={
                   <DropdownMenuItem
@@ -74,6 +76,20 @@ export function PostAuthorRow({
                 }
               />
             ) : undefined
+          }
+          deleteMenuItem={
+            <PostDeleteModal
+            post={post}
+            triggerBtn={
+                <DropdownMenuItem
+                    onSelect={(e) => e.preventDefault()}
+                    className="cursor-pointer flex items-center h-12 gap-2 text-neutral-500 hover:text-primary-500"
+                >
+                    <TrashIcon className="w-4 h-4" />
+                    <p className="text-base font-medium">Delete post</p>
+                </DropdownMenuItem>
+            }
+        />
           }
         />
       </div>

@@ -1,5 +1,5 @@
 // Component
-export { default as CreatePostModal } from "./ui/PostModal";
+export { default as CreatePostModal } from "./ui/PostModals";
 
 // Actions
 export { createPostAction } from "./api/create-post-action";

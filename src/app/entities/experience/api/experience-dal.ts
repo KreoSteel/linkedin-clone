@@ -164,6 +164,7 @@ export const deleteExperience = async (userId: string, experienceId: string): Pr
             success: true,
             data: undefined,
         }
+        
     } catch (error) {
         if (error instanceof Error) {
             return {

@@ -6,14 +6,15 @@ import { TEducation } from "@/app/entities/education";
 
 export default function EducationDeleteModal({ education }: { education: TEducation}) {
     const [open, setOpen] = useState(false);
-    const [state, formAction, isPending] = useActionState(deleteEducationAction, undefined)
+    const [state, formAction, isPending] = useActionState(deleteEducationAction, undefined);
+    const { success } = state ?? {};
     useStateToast(state);
 
     useEffect(() => {
-        if (state?.success) {
+        if (success) {
             setOpen(false);
         }
-    }, [state]);
+    }, [success]);
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
